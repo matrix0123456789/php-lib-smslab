@@ -1,5 +1,5 @@
 {
-  "name": "jpyzio/lib-php-smslabs",
+  "name": "ittools/lib-php-smslabs",
   "description": "Biblioteka integracji z smslabs.pl",
   "type": "library",
   "license": "MIT",
@@ -16,6 +16,8 @@
     }
   },
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.4",
+    "ext-curl": "*",
+    "ext-json": "*"
   }
 }
