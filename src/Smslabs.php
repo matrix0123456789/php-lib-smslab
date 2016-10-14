@@ -241,7 +241,7 @@ class Smslabs
         return $list;
     }
 
-    /**
+        /**
      * @param int $id
      * @return mixed
      */
@@ -253,14 +253,9 @@ class Smslabs
 
         $sms = $this->sendRequest(self::SMS_STATUS_URL.'?id='.$id);
 
-        return new SmsDetails(
-            $sms['id'],
-            $sms['from'],
-            $sms['number_to'],
-            $sms['status'],
-            $sms['sms_count'],
-            $sms['sms_content'],
-            $sms['price']
-        );
+        $smsDetails = SmsDetails::createFromArray($sms);
+        return $smsDetails;
+        
     }
+
 }
