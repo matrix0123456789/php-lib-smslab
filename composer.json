@@ -1,0 +1,21 @@
+{
+  "name": "jpyzio/lib-php-smslabs",
+  "description": "Biblioteka integracji z smslabs.pl",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ITTools",
+      "email": "kontakt@ittools.pl"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Ittools\\Smslabs\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.4"
+  }
+}
