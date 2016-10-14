@@ -1,5 +1,5 @@
 {
-  "name": "ittools/lib-php-smslabs",
+  "name": "ittools/php-lib-smslabs",
   "description": "Biblioteka integracji z smslabs.pl",
   "type": "library",
   "license": "MIT",
