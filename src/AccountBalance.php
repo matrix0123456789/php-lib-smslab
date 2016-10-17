@@ -9,7 +9,7 @@ class AccountBalance
 
     /**
      * AccountBalance constructor.
-     * @param $balance
+     * @param double $balance
      */
     public function __construct($balance)
     {
@@ -17,7 +17,7 @@ class AccountBalance
     }
 
     /**
-     * @return mixed
+     * @return double
      */
     public function getBalance()
     {
