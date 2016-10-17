@@ -2,11 +2,6 @@
 
 namespace Ittools\Smslabs;
 
-use Ittools\Smslabs\Container\AccountBalance;
-use Ittools\Smslabs\Container\InSms;
-use Ittools\Smslabs\Container\OutSms;
-use Ittools\Smslabs\Container\Sender;
-use Ittools\Smslabs\Container\SmsDetails;
 use Ittools\Smslabs\Exception\InvalidResponseException;
 
 class Smslabs
@@ -80,15 +75,33 @@ class Smslabs
 
     /**
      * @param string $phoneNumber
+     * @return bool
+     */
+    private function checkPhoneNumber($phoneNumber)
+    {
+        if (preg_match('/\+[0-9]{10,13}/', $phoneNumber)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $phoneNumber
      * @param string $message
      * @param bool $isFlash
      * @param int $expiration
      * @param \DateTime $sendDate
+     * @return bool
      */
     public function add($phoneNumber, $message, $isFlash = null, $expiration = null, \DateTime $sendDate = null)
     {
-        if (substr($phoneNumber, 0, 3) != '+48') {
+        if (strlen($phoneNumber) == 9) {
             $phoneNumber = '+48'.$phoneNumber;
+        }
+
+        if ($this->checkPhoneNumber($phoneNumber) === false) {
+            return false;
         }
 
         $sms = [
@@ -104,6 +117,8 @@ class Smslabs
         }
 
         $this->smsToSend[] = $sms;
+
+        return true;
     }
 
     /**
@@ -128,7 +143,7 @@ class Smslabs
      * @param string $url
      * @param array $data
      * @param string $method
-     * @return mixed
+     * @return array
      * @throws InvalidResponseException
      */
     private function sendRequest($url, $data = null, $method = 'GET')
@@ -163,7 +178,7 @@ class Smslabs
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getSenders()
     {
@@ -179,7 +194,7 @@ class Smslabs
     }
 
     /**
-     * @return mixed
+     * @return AccountBalance
      */
     public function getAccountBalance()
     {
@@ -189,7 +204,7 @@ class Smslabs
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getSmsIn()
     {
@@ -215,7 +230,7 @@ class Smslabs
     /**
      * @param int $offset
      * @param int $limit
-     * @return mixed
+     * @return array
      */
     public function getSmsOut($offset = 0, $limit = 100)
     {
@@ -243,7 +258,7 @@ class Smslabs
 
     /**
      * @param int $id
-     * @return mixed
+     * @return SmsDetails
      */
     public function getSmsDetails($id)
     {
