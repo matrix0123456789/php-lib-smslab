@@ -130,6 +130,10 @@ class Smslabs
             return false;
         }
 
+        if ($this->senderId === null) {
+            throw new \InvalidArgumentException('SenderId is missing');
+        }
+
         foreach ($this->smsToSend as $sms) {
             $this->smsStatus[] = $this->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
         }
@@ -172,7 +176,7 @@ class Smslabs
     /**
      * @return array
      */
-    public function getSendStatus()
+    public function getSentStatus()
     {
         return $this->smsStatus;
     }
