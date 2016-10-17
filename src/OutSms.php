@@ -41,22 +41,40 @@ class OutSms
         $statusD,
         $numberFrom
     ) {
-        $deliveryTimeDT = new \DateTime();
-        $deliveryTimeDT->setTimestamp($deliveryTime);
+        if ($deliveryTime !== null) {
+            $deliveryTimeDT = new \DateTime();
+            $deliveryTimeDT->setTimestamp($deliveryTime);
+            $this->deliveryTime = $deliveryTimeDT;
+        }
 
         $incomingTimeDT = new \DateTime();
         $incomingTimeDT->setTimestamp($incomingTime);
+        $this->incomingTime = $incomingTimeDT;
 
         $this->id = $id;
-        $this->deliveryTime = $deliveryTimeDT;
         $this->count = $count;
         $this->price = $price;
         $this->content = $content;
         $this->numberTo = $numberTo;
-        $this->incomingTime = $incomingTimeDT;
         $this->status = $status;
         $this->statusD = $statusD;
         $this->numberFrom = $numberFrom;
+    }
+
+    public static function createFromResponseObject(\stdClass $respObj)
+    {
+        return new self(
+            $respObj->_id,
+            property_exists($respObj, 'del_t') ? $respObj->del_t : null,
+            $respObj->s_cnt,
+            $respObj->price,
+            $respObj->s_con,
+            $respObj->no_to,
+            $respObj->in_t,
+            $respObj->stat,
+            $respObj->stat_d,
+            $respObj->no_fr
+        );
     }
 
     /**

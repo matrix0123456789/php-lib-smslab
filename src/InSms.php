@@ -37,6 +37,19 @@ class InSms
         $this->status = $status;
     }
 
+    public static function createFromResponseObject(\stdClass $respObj)
+    {
+        return new self(
+            $respObj->_id,
+            $respObj->s_cnt,
+            $respObj->s_con,
+            $respObj->no_to,
+            $respObj->in_t,
+            $respObj->no_fr,
+            $respObj->stat
+        );
+    }
+
     /**
      * @return mixed
      */

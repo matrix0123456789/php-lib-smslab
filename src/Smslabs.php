@@ -2,6 +2,7 @@
 
 namespace Ittools\Smslabs;
 
+use GuzzleHttp\Client;
 use Ittools\Smslabs\Exception\InvalidResponseException;
 
 class Smslabs
@@ -28,7 +29,7 @@ class Smslabs
     /**
      * @var bool
      */
-    private $isFlash = false;
+    private $isFlashMessage = false;
 
     /**
      * @var string
@@ -38,7 +39,7 @@ class Smslabs
     /**
      * @var int
      */
-    private $expiratonMinutes = 0;
+    private $expirationMinutes = 0;
 
     /**
      * @var \DateTime
@@ -67,11 +68,11 @@ class Smslabs
     }
 
     /**
-     * @param boolean $isFlash
+     * @param boolean $isFlashMessage
      */
-    public function setIsFlash($isFlash)
+    public function setIsFlashMessage($isFlashMessage)
     {
-        $this->isFlash = (bool)$isFlash;
+        $this->isFlashMessage = (bool)$isFlashMessage;
     }
 
     /**
@@ -83,15 +84,15 @@ class Smslabs
     }
 
     /**
-     * @param int $expiratonMinutes
+     * @param int $expirationMinutes
      */
-    public function setExpiraton($expiratonMinutes)
+    public function setExpiration($expirationMinutes)
     {
-        if ($expiratonMinutes < 1 || $expiratonMinutes > 5520) {
+        if ($expirationMinutes < 1 || $expirationMinutes > 5520) {
             throw new \InvalidArgumentException('Valid values: 1 - 5520');
         }
 
-        $this->expiratonMinutes = (int)$expiratonMinutes;
+        $this->expirationMinutes = (int)$expirationMinutes;
     }
 
     /**
@@ -100,6 +101,46 @@ class Smslabs
     public function setSendDate(\DateTime $sendDateTime)
     {
         $this->sendDateTime = $sendDateTime;
+    }
+
+    /**
+     * @param string $phoneNumber
+     * @param string $message
+     * @param bool $isFlashMessage
+     * @param int $expirationMinutes
+     * @param \DateTime $sendDateTime
+     * @return bool
+     */
+    public function add(
+        $phoneNumber,
+        $message,
+        $isFlashMessage = null,
+        $expirationMinutes = null,
+        \DateTime $sendDateTime = null
+    ) {
+        if (strlen($phoneNumber) == 9) {
+            $phoneNumber = '+48'.$phoneNumber;
+        }
+
+        if ($this->checkPhoneNumber($phoneNumber) === false) {
+            return false;
+        }
+
+        $sms = [
+            'phone_number' => $phoneNumber,
+            'message' => $message,
+            'flash' => $isFlashMessage === null ? (int)$this->isFlashMessage : (int)$isFlashMessage,
+            'expiration' => $expirationMinutes === null ? (int)$this->expirationMinutes : (int)$expirationMinutes,
+            'sender_id' => $this->senderId,
+        ];
+
+        if ($this->sendDateTime !== null || $sendDateTime !== null) {
+            $sms['send_date'] = (int)$sendDateTime->getTimestamp();
+        }
+
+        $this->smsToSend[] = $sms;
+
+        return true;
     }
 
     /**
@@ -116,51 +157,11 @@ class Smslabs
     }
 
     /**
-     * @param string $phoneNumber
-     * @param string $message
-     * @param bool $isFlash
-     * @param int $expiratonMinutes
-     * @param \DateTime $sendDateTime
-     * @return bool
-     */
-    public function add(
-        $phoneNumber,
-        $message,
-        $isFlash = null,
-        $expiratonMinutes = null,
-        \DateTime $sendDateTime = null
-    ) {
-        if (strlen($phoneNumber) == 9) {
-            $phoneNumber = '+48'.$phoneNumber;
-        }
-
-        if ($this->checkPhoneNumber($phoneNumber) === false) {
-            return false;
-        }
-
-        $sms = [
-            'phone_number' => $phoneNumber,
-            'message' => $message,
-            'flash' => $isFlash === null ? (int)$this->isFlash : (int)$isFlash,
-            'expiration' => $expiratonMinutes === null ? (int)$this->expiratonMinutes : (int)$expiratonMinutes,
-            'sender_id' => $this->senderId,
-        ];
-
-        if ($this->sendDateTime !== null || $sendDateTime !== null) {
-            $sms['send_date'] = (int)$sendDateTime->getTimestamp();
-        }
-
-        $this->smsToSend[] = $sms;
-
-        return true;
-    }
-
-    /**
      * @return bool
      */
     public function send()
     {
-        if ($this->smsToSend == []) {
+        if (empty($this->smsToSend)) {
             return false;
         }
 
@@ -170,7 +171,7 @@ class Smslabs
 
         foreach ($this->smsToSend as $sms) {
             $httpResponse = $this->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
-            $this->smsStatus[] = new SmsSentResponse($httpResponse['account'], $httpResponse['sms_id']);
+            $this->smsStatus[] = new SmsSentResponse($httpResponse->account, $httpResponse->sms_id);
         }
 
         $this->smsToSend = [];
@@ -182,30 +183,34 @@ class Smslabs
      * @param string $url
      * @param array $data
      * @param string $method
-     * @return array
+     * @return \stdClass
      * @throws InvalidResponseException
      */
     private function sendRequest($url, $data = null, $method = 'GET')
     {
-        $curl = curl_init(self::API_URL.$url);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $this->appKey.':'.$this->secretKey);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        if ($data !== null) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        if (!in_array($method, ['GET', 'PUT'])) {
+            throw new \InvalidArgumentException('Invalid method type.');
         }
 
-        $response = json_decode(curl_exec($curl), true);
+        $client = new Client();
+        $response = $client->request($method, self::API_URL.$url, [
+            'auth' => [$this->appKey, $this->secretKey],
+            'form_params' => $data,
+        ]);
 
-        curl_close($curl);
-
-        if (!$response || !isset($response['code']) || $response['code'] != 200) {
+        if ($response->getStatusCode() != 200) {
             throw new InvalidResponseException();
         }
 
-        return $response['data'];
+        $bodyJson = (string)$response->getBody();
+
+        $bodyObj = \GuzzleHttp\json_decode($bodyJson);
+
+        if (!property_exists($bodyObj, 'data')) {
+            throw new InvalidResponseException('Missing data property in response');
+        }
+
+        return $bodyObj->data;
     }
 
     /**
@@ -226,7 +231,7 @@ class Smslabs
         $list = [];
 
         foreach ($response as $sender) {
-            $list[] = new Sender($sender['id'], $sender['name'], $sender['sender']);
+            $list[] = Sender::createFromResponseObject($sender);
         }
 
         return $list;
@@ -239,7 +244,7 @@ class Smslabs
     {
         $response = $this->sendRequest(self::ACCOUNT_URL);
 
-        return new AccountBalance($response['account'] / 100);
+        return new AccountBalance($response->account / 100);
     }
 
     /**
@@ -252,15 +257,7 @@ class Smslabs
         $list = [];
 
         foreach ($response as $sms) {
-            $list[] = new InSms(
-                $sms['_id'],
-                $sms['s_cnt'],
-                $sms['s_con'],
-                $sms['no_to'],
-                $sms['in_t'],
-                $sms['no_fr'],
-                $sms['stat']
-            );
+            $list[] = InSms::createFromResponseObject($sms);
         }
 
         return $list;
@@ -278,18 +275,7 @@ class Smslabs
         $list = [];
 
         foreach ($response as $sms) {
-            $list[] = new OutSms(
-                $sms['_id'],
-                $sms['del_t'],
-                $sms['s_cnt'],
-                $sms['price'],
-                $sms['s_con'],
-                $sms['no_to'],
-                $sms['in_t'],
-                $sms['stat'],
-                $sms['stat_d'],
-                $sms['no_fr']
-            );
+            $list[] = OutSms::createFromResponseObject($sms);
         }
 
         return $list;
@@ -307,7 +293,7 @@ class Smslabs
 
         $sms = $this->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
 
-        $smsDetails = SmsDetails::createFromArray($sms);
+        $smsDetails = SmsDetails::createFromResponseObject($sms);
 
         return $smsDetails;
 

@@ -22,6 +22,15 @@ class Sender
         $this->sender = $sender;
     }
 
+    public static function createFromResponseObject(\stdClass $respObj)
+    {
+        return new self(
+            $respObj->id,
+            $respObj->name,
+            $respObj->sender
+        );
+    }
+
     /**
      * @return mixed
      */

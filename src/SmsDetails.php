@@ -35,6 +35,24 @@ class SmsDetails
     }
 
     /**
+     * Creates SmsDetails object by array
+     * @param \stdClass $sms
+     * @return \Ittools\Smslabs\SmsDetails
+     */
+    public static function createFromResponseObject(\stdClass $sms)
+    {
+        return new self(
+            $sms->id,
+            $sms->from,
+            $sms->number_to,
+            $sms->status,
+            $sms->sms_count,
+            $sms->sms_content,
+            $sms->price
+        );
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -88,24 +106,6 @@ class SmsDetails
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Creates SmsDetails object by array
-     * @param array $sms
-     * @return \Ittools\Smslabs\SmsDetails
-     */
-    public static function createFromArray(array $sms)
-    {
-        return new SmsDetails(
-            $sms['id'],
-            $sms['from'],
-            $sms['number_to'],
-            $sms['status'],
-            $sms['sms_count'],
-            $sms['sms_content'],
-            $sms['price']
-        );
     }
 
 }

@@ -8,7 +8,10 @@ Examples:
 
 **Send SMS:**
  - $sms->setSenderId($numberOrSenderId);
- - $sms->add($numberWithCountryPrefix, $message);
+ - $sms->setExpiration($minutes); // optionally
+ - $sms->setSendDate($dateTime); // optionally
+ - $sms->setIsFlashMessage($isFlashMessage); // optionally
+ - $sms->add($number, $message);
  - $sms->send();
 
 **Get available SenderId:**
