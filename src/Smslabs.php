@@ -3,6 +3,7 @@
 namespace Ittools\Smslabs;
 
 use GuzzleHttp\Client;
+use Ittools\Smslabs\Exception\EmptySMSQueueException;
 use Ittools\Smslabs\Exception\InvalidResponseException;
 
 class Smslabs
@@ -69,22 +70,29 @@ class Smslabs
 
     /**
      * @param boolean $isFlashMessage
+     * @return Smslabs $this
      */
     public function setIsFlashMessage($isFlashMessage)
     {
         $this->isFlashMessage = (bool)$isFlashMessage;
+
+        return $this;
     }
 
     /**
      * @param string $senderId
+     * @return Smslabs $this
      */
     public function setSenderId($senderId)
     {
         $this->senderId = $senderId;
+
+        return $this;
     }
 
     /**
      * @param int $expirationMinutes
+     * @return Smslabs $this
      */
     public function setExpiration($expirationMinutes)
     {
@@ -93,14 +101,19 @@ class Smslabs
         }
 
         $this->expirationMinutes = (int)$expirationMinutes;
+
+        return $this;
     }
 
     /**
      * @param \DateTime $sendDateTime
+     * @return Smslabs $this
      */
     public function setSendDate(\DateTime $sendDateTime)
     {
         $this->sendDateTime = $sendDateTime;
+
+        return $this;
     }
 
     /**
@@ -109,7 +122,7 @@ class Smslabs
      * @param bool $isFlashMessage
      * @param int $expirationMinutes
      * @param \DateTime $sendDateTime
-     * @return bool
+     * @return Smslabs $this
      */
     public function add(
         $phoneNumber,
@@ -123,7 +136,7 @@ class Smslabs
         }
 
         if ($this->checkPhoneNumber($phoneNumber) === false) {
-            return false;
+            throw new \InvalidArgumentException('Invalid phone number');
         }
 
         $sms = [
@@ -140,7 +153,7 @@ class Smslabs
 
         $this->smsToSend[] = $sms;
 
-        return true;
+        return $this;
     }
 
     /**
@@ -157,12 +170,12 @@ class Smslabs
     }
 
     /**
-     * @return bool
+     * @return Smslabs $this
      */
     public function send()
     {
         if (empty($this->smsToSend)) {
-            return false;
+            throw new EmptySMSQueueException('No messages to send');
         }
 
         if ($this->senderId === null) {
@@ -176,7 +189,7 @@ class Smslabs
 
         $this->smsToSend = [];
 
-        return true;
+        return $this;
     }
 
     /**

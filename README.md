@@ -7,12 +7,12 @@ Examples:
  - $sms = new \Ittools\Smslabs\Smslabs($appKey, $secret);
 
 **Send SMS:**
- - $sms->setSenderId($numberOrSenderId);
- - $sms->setExpiration($minutes); // optionally
- - $sms->setSendDate($dateTime); // optionally
- - $sms->setIsFlashMessage($isFlashMessage); // optionally
- - $sms->add($number, $message);
- - $sms->send();
+ - $sms->setSenderId($numberOrSenderId)
+ - ->setExpiration($minutes) // optionally
+ - ->setSendDate($dateTime) // optionally
+ - ->setIsFlashMessage($isFlashMessage) // optionally
+ - ->add($number, $message)
+ - ->send();
 
 **Get available SenderId:**
  - $sms->getAvailableSenders();
