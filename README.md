@@ -12,7 +12,7 @@ Examples:
  - $sms->send();
 
 **Get available SenderId:**
- - $sms->getSenders();
+ - $sms->getAvailableSenders();
 
 **Get send SMS status:**
  - $sms->getSentStatus();
