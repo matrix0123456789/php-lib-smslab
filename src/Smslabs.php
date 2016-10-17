@@ -20,7 +20,7 @@ class Smslabs
 
     private $isFlash = false;
     private $senderId = null;
-    private $expiraton = 0;
+    private $expiratonMinutes = 0;
     private $sendDate = null;
 
     private $smsToSend = [];
@@ -54,15 +54,15 @@ class Smslabs
     }
 
     /**
-     * @param int $expiraton Minutes
+     * @param int $expiratonMinutes
      */
-    public function setExpiraton($expiraton)
+    public function setExpiraton($expiratonMinutes)
     {
-        if ($expiraton < 1 || $expiraton > 5520) {
+        if ($expiratonMinutes < 1 || $expiratonMinutes > 5520) {
             throw new \InvalidArgumentException('Valid values: 1 - 5520');
         }
 
-        $this->expiraton = (int)$expiraton;
+        $this->expiratonMinutes = (int)$expiratonMinutes;
     }
 
     /**
@@ -90,11 +90,11 @@ class Smslabs
      * @param string $phoneNumber
      * @param string $message
      * @param bool $isFlash
-     * @param int $expiration
+     * @param int $expiratonMinutes
      * @param \DateTime $sendDate
      * @return bool
      */
-    public function add($phoneNumber, $message, $isFlash = null, $expiration = null, \DateTime $sendDate = null)
+    public function add($phoneNumber, $message, $isFlash = null, $expiratonMinutes = null, \DateTime $sendDate = null)
     {
         if (strlen($phoneNumber) == 9) {
             $phoneNumber = '+48'.$phoneNumber;
@@ -108,7 +108,7 @@ class Smslabs
             'phone_number' => $phoneNumber,
             'message' => $message,
             'flash' => $isFlash === null ? (int)$this->isFlash : (int)$isFlash,
-            'expiration' => $expiration === null ? (int)$this->expiraton : (int)$expiration,
+            'expiration' => $expiratonMinutes === null ? (int)$this->expiratonMinutes : (int)$expiratonMinutes,
             'sender_id' => $this->senderId,
         ];
 
@@ -135,7 +135,8 @@ class Smslabs
         }
 
         foreach ($this->smsToSend as $sms) {
-            $this->smsStatus[] = $this->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
+            $httpResponse = $this->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
+            $this->smsStatus[] = new SmsSentResponse($httpResponse['account'], $httpResponse['sms_id']);
         }
 
         $this->smsToSend = [];
@@ -174,7 +175,7 @@ class Smslabs
     }
 
     /**
-     * @return array
+     * @return SmsSentResponse[]
      */
     public function getSentStatus()
     {
@@ -182,9 +183,9 @@ class Smslabs
     }
 
     /**
-     * @return array
+     * @return Sender[]
      */
-    public function getSenders()
+    public function getAvailableSenders()
     {
         $response = $this->sendRequest(self::SENDERS_URL);
 
@@ -204,11 +205,11 @@ class Smslabs
     {
         $response = $this->sendRequest(self::ACCOUNT_URL);
 
-        return new AccountBalance(isset($response['account']) ? $response['account'] : null);
+        return new AccountBalance($response['account'] / 100);
     }
 
     /**
-     * @return array
+     * @return InSms[]
      */
     public function getSmsIn()
     {
@@ -234,7 +235,7 @@ class Smslabs
     /**
      * @param int $offset
      * @param int $limit
-     * @return array
+     * @return OutSms[]
      */
     public function getSmsOut($offset = 0, $limit = 100)
     {
@@ -260,21 +261,22 @@ class Smslabs
         return $list;
     }
 
-        /**
-     * @param int $id
+    /**
+     * @param string $smsId
      * @return SmsDetails
      */
-    public function getSmsDetails($id)
+    public function getSmsDetails($smsId)
     {
         if ($this->senderId === null) {
             throw new \InvalidArgumentException('Sender ID');
         }
 
-        $sms = $this->sendRequest(self::SMS_STATUS_URL.'?id='.$id);
+        $sms = $this->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
 
         $smsDetails = SmsDetails::createFromArray($sms);
+
         return $smsDetails;
-        
+
     }
 
 }
