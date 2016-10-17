@@ -15,15 +15,44 @@ class Smslabs
     const SMS_IN_URL = '/smsIn';
     const ACCOUNT_URL = '/account';
 
+    /**
+     * @var string
+     */
     private $appKey = null;
+
+    /**
+     * @var string
+     */
     private $secretKey = null;
 
+    /**
+     * @var bool
+     */
     private $isFlash = false;
-    private $senderId = null;
-    private $expiratonMinutes = 0;
-    private $sendDate = null;
 
+    /**
+     * @var string
+     */
+    private $senderId = null;
+
+    /**
+     * @var int
+     */
+    private $expiratonMinutes = 0;
+
+    /**
+     * @var \DateTime
+     */
+    private $sendDateTime = null;
+
+    /**
+     * @var array[]
+     */
     private $smsToSend = [];
+
+    /**
+     * @var SmsSentResponse[]
+     */
     private $smsStatus = [];
 
     /**
@@ -66,11 +95,11 @@ class Smslabs
     }
 
     /**
-     * @param \DateTime $sendDate
+     * @param \DateTime $sendDateTime
      */
-    public function setSendDate(\DateTime $sendDate)
+    public function setSendDate(\DateTime $sendDateTime)
     {
-        $this->sendDate = $sendDate;
+        $this->sendDateTime = $sendDateTime;
     }
 
     /**
@@ -91,11 +120,16 @@ class Smslabs
      * @param string $message
      * @param bool $isFlash
      * @param int $expiratonMinutes
-     * @param \DateTime $sendDate
+     * @param \DateTime $sendDateTime
      * @return bool
      */
-    public function add($phoneNumber, $message, $isFlash = null, $expiratonMinutes = null, \DateTime $sendDate = null)
-    {
+    public function add(
+        $phoneNumber,
+        $message,
+        $isFlash = null,
+        $expiratonMinutes = null,
+        \DateTime $sendDateTime = null
+    ) {
         if (strlen($phoneNumber) == 9) {
             $phoneNumber = '+48'.$phoneNumber;
         }
@@ -112,8 +146,8 @@ class Smslabs
             'sender_id' => $this->senderId,
         ];
 
-        if ($this->sendDate !== null || $sendDate !== null) {
-            $sms['send_date'] = (int)$sendDate->getTimestamp();
+        if ($this->sendDateTime !== null || $sendDateTime !== null) {
+            $sms['send_date'] = (int)$sendDateTime->getTimestamp();
         }
 
         $this->smsToSend[] = $sms;

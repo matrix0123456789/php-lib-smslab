@@ -89,13 +89,14 @@ class SmsDetails
     {
         return $this->price;
     }
-    
-     /**
+
+    /**
      * Creates SmsDetails object by array
      * @param array $sms
-     * @return \Ittools\Smslabs\Container\SmsDetails
+     * @return \Ittools\Smslabs\SmsDetails
      */
-    public static function createFromArray(array $sms){
+    public static function createFromArray(array $sms)
+    {
         return new SmsDetails(
             $sms['id'],
             $sms['from'],
