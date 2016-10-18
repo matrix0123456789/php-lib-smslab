@@ -35,36 +35,6 @@ class HttpClient
         $this->secretKey = $secretKey;
     }
 
-
-    /**
-     * @return Client
-     */
-    public function getClient()
-    {
-        if ($this->client === null) {
-            $this->client = new Client();
-        }
-
-        return $this->client;
-    }
-
-    /**
-     * @param Client $client
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
-
-    private function validateMethod($method)
-    {
-        if (!in_array($method, ['POST', 'PUT', 'GET', 'DELETE'])) {
-            throw new \InvalidArgumentException('Invalid method');
-        }
-
-        return true;
-    }
-
     /**
      * @param string $url
      * @param array $data
@@ -94,5 +64,34 @@ class HttpClient
         }
 
         return $bodyObj->data;
+    }
+
+    private function validateMethod($method)
+    {
+        if (!in_array($method, ['POST', 'PUT', 'GET', 'DELETE'])) {
+            throw new \InvalidArgumentException('Invalid method');
+        }
+
+        return true;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient()
+    {
+        if ($this->client === null) {
+            $this->client = new Client();
+        }
+
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
     }
 }
