@@ -1,6 +1,6 @@
 {
   "name": "ittools/php-lib-smslabs",
-  "description": "Biblioteka integracji z smslabs.pl",
+  "description": "PHP client for SMSLabs.pl",
   "type": "library",
   "license": "MIT",
   "authors": [
