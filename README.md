@@ -14,11 +14,11 @@ Examples:
  - ->add($number, $message)
  - ->send();
 
+**Get recently sent SMS status (use after send() method):**
+ - $sms->getSentStatus();
+
 **Get available SenderId:**
  - $sms->getAvailableSenders();
-
-**Get send SMS status:**
- - $sms->getSentStatus();
 
 **Account Balance:**
  - $sms->getAccountBalance();
