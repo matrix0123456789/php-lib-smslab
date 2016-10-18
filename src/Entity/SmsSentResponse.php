@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittools\Smslabs;
+namespace Ittools\Smslabs\Entity;
 
 
 class SmsSentResponse

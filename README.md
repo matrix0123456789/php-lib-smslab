@@ -1,10 +1,10 @@
-Client to communicate with SMSLabs.pl
+PHP client for SMSLabs.pl
 ======
 
 Examples:
 --
 **Constructor:**
- - $sms = new \Ittools\Smslabs\Smslabs($appKey, $secret);
+ - $sms = new \Ittools\Smslabs\SmslabsClient($appKey, $secret);
 
 **Send SMS:**
  - $sms->setSenderId($numberOrSenderId)
