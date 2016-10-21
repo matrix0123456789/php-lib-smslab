@@ -4,30 +4,46 @@ PHP client for SMSLabs.pl
 Examples:
 --
 **Constructor:**
- - $sms = new \Ittools\Smslabs\SmslabsClient($appKey, $secret);
+```
+$sms = new \Ittools\Smslabs\SmslabsClient($appKey, $secret);
+ ```
 
 **Send SMS:**
- - $sms->setSenderId($numberOrSenderId)
- - ->setExpiration($minutes) // optionally
- - ->setSendDate($dateTime) // optionally
- - ->setIsFlashMessage($isFlashMessage) // optionally
- - ->add($number, $message)
- - ->send();
+```
+$sms->setSenderId($numberOrSenderId)
+    ->setExpiration($minutes) // optionally
+    ->setSendDate($dateTime) // optionally
+    ->setIsFlashMessage($isFlashMessage) // optionally
+    ->add($number, $message)
+    ->send();
+```
 
 **Get recently sent SMS status (use after send() method):**
- - $sms->getSentStatus();
+```
+$sms->getSentStatus();
+```
 
 **Get available SenderId:**
- - $sms->getAvailableSenders();
+```
+$sms->getAvailableSenders();
+```
 
 **Account Balance:**
- - $sms->getAccountBalance();
+```
+$sms->getAccountBalance();
+```
 
 **Check incoming SMS:**
- - $sms->getSmsIn();
+```
+$sms->getSmsIn();
+```
 
 **Check sent SMS:**
- - $sms->getSmsOut($offset, $limit);
+```
+$sms->getSmsOut($offset, $limit);
+```
 
 **Check details of SMS:**
- - $sms->getSmsDetails();
+```
+$sms->getSmsDetails();
+```
