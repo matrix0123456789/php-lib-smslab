@@ -204,11 +204,11 @@ class SmslabsClient
      */
     public function getAvailableSenders()
     {
-        $response = $this->client->sendRequest(self::SENDERS_URL);
+        $sendersResponse = $this->client->sendRequest(self::SENDERS_URL);
 
         $list = [];
 
-        foreach ($response as $sender) {
+        foreach ($sendersResponse as $sender) {
             $list[] = Sender::createFromResponseObject($sender);
         }
 
@@ -220,9 +220,9 @@ class SmslabsClient
      */
     public function getAccountBalance()
     {
-        $response = $this->client->sendRequest(self::ACCOUNT_URL);
+        $balanceResponse = $this->client->sendRequest(self::ACCOUNT_URL);
 
-        return new AccountBalance($response->account / 100);
+        return new AccountBalance($balanceResponse->account / 100);
     }
 
     /**
@@ -230,12 +230,12 @@ class SmslabsClient
      */
     public function getSmsIn()
     {
-        $response = $this->client->sendRequest(self::SMS_IN_URL);
+        $smsInResponse = $this->client->sendRequest(self::SMS_IN_URL);
 
         $list = [];
 
-        foreach ($response as $sms) {
-            $list[] = InSms::createFromResponseObject($sms);
+        foreach ($smsInResponse as $smsIn) {
+            $list[] = InSms::createFromResponseObject($smsIn);
         }
 
         return $list;
@@ -248,12 +248,12 @@ class SmslabsClient
      */
     public function getSmsOut($offset = 0, $limit = 100)
     {
-        $response = $this->client->sendRequest(self::SMS_LIST_URL.'?offset='.$offset.'&limit='.$limit);
+        $smsOutResponse = $this->client->sendRequest(self::SMS_LIST_URL.'?offset='.$offset.'&limit='.$limit);
 
         $list = [];
 
-        foreach ($response as $sms) {
-            $list[] = OutSms::createFromResponseObject($sms);
+        foreach ($smsOutResponse as $smsOut) {
+            $list[] = OutSms::createFromResponseObject($smsOut);
         }
 
         return $list;
@@ -269,12 +269,11 @@ class SmslabsClient
             throw new \InvalidArgumentException('Sender ID');
         }
 
-        $sms = $this->client->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
+        $detailsResponse = $this->client->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
 
-        $smsDetails = SmsDetails::createFromResponseObject($sms);
+        $smsDetails = SmsDetails::createFromResponseObject($detailsResponse);
 
         return $smsDetails;
-
     }
 
 }
