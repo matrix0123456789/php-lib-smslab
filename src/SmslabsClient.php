@@ -3,8 +3,8 @@
 namespace Ittools\Smslabs;
 
 use Ittools\Smslabs\Entity\AccountBalance;
-use Ittools\Smslabs\Entity\InSms;
-use Ittools\Smslabs\Entity\OutSms;
+use Ittools\Smslabs\Entity\SmsIn;
+use Ittools\Smslabs\Entity\SmsOut;
 use Ittools\Smslabs\Entity\Sender;
 use Ittools\Smslabs\Entity\SmsDetails;
 use Ittools\Smslabs\Entity\SmsSentResponse;
@@ -226,7 +226,7 @@ class SmslabsClient
     }
 
     /**
-     * @return InSms[]
+     * @return SmsIn[]
      */
     public function getSmsIn()
     {
@@ -235,7 +235,7 @@ class SmslabsClient
         $list = [];
 
         foreach ($smsInResponse as $smsIn) {
-            $list[] = InSms::createFromResponseObject($smsIn);
+            $list[] = SmsIn::createFromResponseObject($smsIn);
         }
 
         return $list;
@@ -244,7 +244,7 @@ class SmslabsClient
     /**
      * @param int $offset
      * @param int $limit
-     * @return OutSms[]
+     * @return SmsOut[]
      */
     public function getSmsOut($offset = 0, $limit = 100)
     {
@@ -253,7 +253,7 @@ class SmslabsClient
         $list = [];
 
         foreach ($smsOutResponse as $smsOut) {
-            $list[] = OutSms::createFromResponseObject($smsOut);
+            $list[] = SmsOut::createFromResponseObject($smsOut);
         }
 
         return $list;

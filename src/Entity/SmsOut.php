@@ -3,7 +3,7 @@
 namespace Ittools\Smslabs\Entity;
 
 
-class OutSms
+class SmsOut
 {
     private $id;
     private $deliveryTime;
@@ -17,7 +17,7 @@ class OutSms
     private $numberFrom;
 
     /**
-     * OutSms constructor.
+     * SmsOut constructor.
      * @param $id
      * @param $deliveryTime
      * @param $count
@@ -61,6 +61,10 @@ class OutSms
         $this->numberFrom = $numberFrom;
     }
 
+    /**
+     * @param \stdClass $respObj
+     * @return SmsOut
+     */
     public static function createFromResponseObject(\stdClass $respObj)
     {
         return new self(

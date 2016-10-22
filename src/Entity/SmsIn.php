@@ -3,7 +3,7 @@
 namespace Ittools\Smslabs\Entity;
 
 
-class InSms
+class SmsIn
 {
     private $id;
     private $count;
@@ -14,7 +14,7 @@ class InSms
     private $status;
 
     /**
-     * InSms constructor.
+     * SmsIn constructor.
      * @param $id
      * @param $count
      * @param $content
