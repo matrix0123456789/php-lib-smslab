@@ -1,6 +1,8 @@
 PHP client for SMSLabs.pl
 ======
 
+[![Build Status](https://travis-ci.org/jpyzio/php-lib-smslab.svg?branch=master)](https://travis-ci.org/jpyzio/php-lib-smslab)
+
 Examples:
 --
 **Constructor:**
