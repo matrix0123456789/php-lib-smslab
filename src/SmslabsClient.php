@@ -61,9 +61,6 @@ class SmslabsClient
      */
     public function __construct($appKey, $secretKey)
     {
-        $this->appKey = $appKey;
-        $this->secretKey = $secretKey;
-
         $this->client = new HttpClient($appKey, $secretKey);
     }
 
