@@ -143,8 +143,10 @@ class SmslabsClient
             'sender_id' => $this->senderId,
         ];
 
-        if ($this->sendDateTime !== null || $sendDateTime !== null) {
+        if ($sendDateTime instanceof \DateTime) {
             $sms['send_date'] = (int)$sendDateTime->getTimestamp();
+        } elseif ($this->sendDateTime instanceof \DateTime) {
+            $sms['send_date'] = (int)$this->sendDateTime->getTimestamp();
         }
 
         $this->smsToSend[] = $sms;
@@ -178,12 +180,13 @@ class SmslabsClient
             throw new \InvalidArgumentException('SenderId is missing');
         }
 
-        foreach ($this->smsToSend as $sms) {
+        foreach ($this->smsToSend as $key => $sms) {
             $httpResponse = $this->client->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
-            $this->smsStatus[] = new SmsSentResponse($httpResponse->account, $httpResponse->sms_id);
-        }
 
-        $this->smsToSend = [];
+            $this->smsStatus[] = new SmsSentResponse($httpResponse->account, $httpResponse->sms_id);
+
+            unset($this->smsToSend[$key]);
+        }
 
         return $this;
     }
