@@ -1,6 +1,3 @@
-sudo:
-  false
-
 language:
   php
 
@@ -19,7 +16,7 @@ install:
   - composer install
 
 script:
-  - vendor/bin/phpunit --configuration phpunit.xml.dist --colors --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --configuration phpunit.xml --colors --coverage-clover=coverage.clover
   - vendor/bin/phpcs --standard=PSR2 src
 
 notifications:
