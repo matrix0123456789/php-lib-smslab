@@ -2,7 +2,6 @@
 
 namespace Ittools\Smslabs\Entity;
 
-
 class SmsDetails
 {
     private $id;
@@ -37,7 +36,7 @@ class SmsDetails
     /**
      * Creates SmsDetails object by array
      * @param \stdClass $sms
-     * @return \Ittools\Smslabs\SmsDetails
+     * @return \Ittools\Smslabs\Entity\SmsDetails
      */
     public static function createFromResponseObject(\stdClass $sms)
     {
@@ -107,5 +106,4 @@ class SmsDetails
     {
         return $this->price;
     }
-
 }

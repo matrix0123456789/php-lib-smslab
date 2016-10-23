@@ -2,7 +2,6 @@
 
 namespace Ittools\Smslabs\Entity;
 
-
 class Sender
 {
     private $id;

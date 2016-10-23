@@ -2,7 +2,6 @@
 
 namespace Ittools\Smslabs\Entity;
 
-
 class SmsSentResponse
 {
     private $account;

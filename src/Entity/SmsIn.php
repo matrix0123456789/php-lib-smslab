@@ -2,7 +2,6 @@
 
 namespace Ittools\Smslabs\Entity;
 
-
 class SmsIn
 {
     private $id;

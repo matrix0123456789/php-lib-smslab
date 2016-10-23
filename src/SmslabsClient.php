@@ -275,5 +275,4 @@ class SmslabsClient
 
         return $smsDetails;
     }
-
 }
