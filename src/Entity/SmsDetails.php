@@ -52,7 +52,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -60,7 +60,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFrom()
     {
@@ -68,7 +68,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumberTo()
     {
@@ -76,7 +76,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getStatus()
     {
@@ -84,7 +84,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getSmsCount()
     {
@@ -92,7 +92,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSmsContent()
     {
@@ -100,7 +100,7 @@ class SmsDetails
     }
 
     /**
-     * @return mixed
+     * @return double
      */
     public function getPrice()
     {

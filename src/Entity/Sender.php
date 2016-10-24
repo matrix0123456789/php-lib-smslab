@@ -10,9 +10,9 @@ class Sender
 
     /**
      * Sender constructor.
-     * @param $id
-     * @param $name
-     * @param $sender
+     * @param string $id
+     * @param string $name
+     * @param string $sender
      */
     public function __construct($id, $name, $sender)
     {
@@ -31,7 +31,7 @@ class Sender
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -39,7 +39,7 @@ class Sender
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -47,7 +47,7 @@ class Sender
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSender()
     {

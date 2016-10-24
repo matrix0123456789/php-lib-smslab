@@ -14,13 +14,13 @@ class SmsIn
 
     /**
      * SmsIn constructor.
-     * @param $id
-     * @param $count
-     * @param $content
-     * @param $numberTo
-     * @param $receiveTime
-     * @param $numberFrom
-     * @param $status
+     * @param string $id
+     * @param int $count
+     * @param string $content
+     * @param string $numberTo
+     * @param \DateTime $receiveTime
+     * @param string $numberFrom
+     * @param int $status
      */
     public function __construct($id, $count, $content, $numberTo, $receiveTime, $numberFrom, $status)
     {
@@ -50,7 +50,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -58,7 +58,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getCount()
     {
@@ -66,7 +66,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -74,7 +74,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumberTo()
     {
@@ -82,7 +82,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getReceiveTime()
     {
@@ -90,7 +90,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumberFrom()
     {
@@ -98,7 +98,7 @@ class SmsIn
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getStatus()
     {

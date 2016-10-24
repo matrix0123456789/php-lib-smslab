@@ -17,16 +17,16 @@ class SmsOut
 
     /**
      * SmsOut constructor.
-     * @param $id
-     * @param $deliveryTime
-     * @param $count
-     * @param $price
-     * @param $content
-     * @param $numberTo
-     * @param $incomingTime
-     * @param $status
-     * @param $statusD
-     * @param $numberFrom
+     * @param string $id
+     * @param int $deliveryTime
+     * @param int $count
+     * @param double $price
+     * @param string $content
+     * @param string $numberTo
+     * @param int $incomingTime
+     * @param int $status
+     * @param string $statusD
+     * @param string $numberFrom
      */
     public function __construct(
         $id,
@@ -81,7 +81,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -89,7 +89,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDeliveryTime()
     {
@@ -97,7 +97,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getCount()
     {
@@ -105,7 +105,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return double
      */
     public function getPrice()
     {
@@ -113,7 +113,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -121,7 +121,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumberTo()
     {
@@ -129,7 +129,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getIncomingTime()
     {
@@ -137,7 +137,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getStatus()
     {
@@ -145,7 +145,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getStatusD()
     {
@@ -153,7 +153,7 @@ class SmsOut
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumberFrom()
     {
