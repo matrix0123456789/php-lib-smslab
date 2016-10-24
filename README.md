@@ -22,6 +22,11 @@ $sms->setSenderId($numberOrSenderId)
     ->send();
 ```
 
+**Show queued SMS befor send***
+```
+$sms->getSmsQueue();
+```
+
 **Get recently sent SMS status (use after send() method):**
 ```
 $sms->getSentStatus();

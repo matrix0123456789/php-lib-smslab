@@ -3,10 +3,10 @@
 namespace Ittools\Smslabs;
 
 use Ittools\Smslabs\Entity\AccountBalance;
-use Ittools\Smslabs\Entity\SmsIn;
-use Ittools\Smslabs\Entity\SmsOut;
 use Ittools\Smslabs\Entity\Sender;
 use Ittools\Smslabs\Entity\SmsDetails;
+use Ittools\Smslabs\Entity\SmsIn;
+use Ittools\Smslabs\Entity\SmsOut;
 use Ittools\Smslabs\Entity\SmsSentResponse;
 use Ittools\Smslabs\Exception\EmptySMSQueueException;
 
@@ -274,5 +274,13 @@ class SmslabsClient
         $smsDetails = SmsDetails::createFromResponseObject($detailsResponse);
 
         return $smsDetails;
+    }
+
+    /**
+     * @return \array[]
+     */
+    public function getSmsQueue()
+    {
+        return $this->smsToSend;
     }
 }
