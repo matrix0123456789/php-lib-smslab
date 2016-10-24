@@ -5,8 +5,15 @@ PHP client for SMSLabs.pl
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/?branch=master)
 [![Build Status](https://travis-ci.org/jpyzio/php-lib-smslab.svg?branch=master)](https://travis-ci.org/jpyzio/php-lib-smslab)
 
-Examples:
---
+## Installation
+
+The recommended way to install the library is through [Composer](http://getcomposer.org):
+
+```sh
+$ composer require ittools/php-lib-smslabs
+```
+## Usage
+
 **Constructor:**
 ```
 $sms = new \Ittools\Smslabs\SmslabsClient($appKey, $secret);
@@ -22,12 +29,12 @@ $sms->setSenderId($numberOrSenderId)
     ->send();
 ```
 
-**Show queued SMS before send**
+**Show queued SMS (before send())**
 ```
 $sms->getSmsQueue();
 ```
 
-**Get recently sent SMS status (use after send() method):**
+**Get recently sent SMS status (after send()):**
 ```
 $sms->getSentStatus();
 ```
