@@ -22,7 +22,7 @@ $sms->setSenderId($numberOrSenderId)
     ->send();
 ```
 
-**Show queued SMS befor send***
+**Show queued SMS before send**
 ```
 $sms->getSmsQueue();
 ```
