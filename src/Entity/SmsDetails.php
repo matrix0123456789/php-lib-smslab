@@ -10,27 +10,27 @@ class SmsDetails
     private $status;
     private $smsCount;
     private $smsContent;
-    private $price;
+    private $priceInGrosz;
 
     /**
      * SmsDetails constructor.
-     * @param $id
-     * @param $from
-     * @param $numberTo
-     * @param $status
-     * @param $smsCount
-     * @param $smsContent
-     * @param $price
+     * @param string $id
+     * @param string $from
+     * @param string $numberTo
+     * @param int $status
+     * @param int $smsCount
+     * @param string $smsContent
+     * @param double $priceInGrosz
      */
-    public function __construct($id, $from, $numberTo, $status, $smsCount, $smsContent, $price)
+    public function __construct($id, $from, $numberTo, $status, $smsCount, $smsContent, $priceInGrosz)
     {
-        $this->id         = $id;
-        $this->from       = $from;
-        $this->numberTo   = $numberTo;
-        $this->status     = $status;
-        $this->smsCount   = $smsCount;
+        $this->id = $id;
+        $this->from = $from;
+        $this->numberTo = $numberTo;
+        $this->status = $status;
+        $this->smsCount = $smsCount;
         $this->smsContent = $smsContent;
-        $this->price      = $price / 100;
+        $this->priceInGrosz = $priceInGrosz;
     }
 
     /**
@@ -47,7 +47,7 @@ class SmsDetails
             $sms->status,
             $sms->sms_count,
             $sms->sms_content,
-            $sms->price
+            ($sms->price / 100)
         );
     }
 
@@ -102,8 +102,8 @@ class SmsDetails
     /**
      * @return double
      */
-    public function getPrice()
+    public function getPriceInGrosz()
     {
-        return $this->price;
+        return $this->priceInGrosz;
     }
 }
