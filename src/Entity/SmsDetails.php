@@ -24,12 +24,12 @@ class SmsDetails
      */
     public function __construct($id, $from, $numberTo, $status, $smsCount, $smsContent, $priceInGrosz)
     {
-        $this->id = $id;
-        $this->from = $from;
-        $this->numberTo = $numberTo;
-        $this->status = $status;
-        $this->smsCount = $smsCount;
-        $this->smsContent = $smsContent;
+        $this->id           = $id;
+        $this->from         = $from;
+        $this->numberTo     = $numberTo;
+        $this->status       = $status;
+        $this->smsCount     = $smsCount;
+        $this->smsContent   = $smsContent;
         $this->priceInGrosz = $priceInGrosz;
     }
 
