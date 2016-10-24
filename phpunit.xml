@@ -2,18 +2,24 @@
 
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
+         bootstrap="./vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
+         forceCoversAnnotation="true"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true"
-         bootstrap="./vendor/autoload.php"
 >
     <testsuites>
         <testsuite name="The project's test suite">
-            <directory>./tests</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>./src/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
