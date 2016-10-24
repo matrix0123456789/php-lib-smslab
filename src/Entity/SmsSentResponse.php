@@ -15,7 +15,7 @@ class SmsSentResponse
     public function __construct($account, $smsId)
     {
         $this->account = $account;
-        $this->smsId = $smsId;
+        $this->smsId   = $smsId;
     }
 
     /**

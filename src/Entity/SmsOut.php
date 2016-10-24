@@ -50,13 +50,13 @@ class SmsOut
         $incomingTimeDT->setTimestamp($incomingTime);
         $this->incomingTime = $incomingTimeDT;
 
-        $this->id = $id;
-        $this->count = $count;
-        $this->price = $price;
-        $this->content = $content;
-        $this->numberTo = $numberTo;
-        $this->status = $status;
-        $this->statusD = $statusD;
+        $this->id         = $id;
+        $this->count      = $count;
+        $this->price      = $price;
+        $this->content    = $content;
+        $this->numberTo   = $numberTo;
+        $this->status     = $status;
+        $this->statusD    = $statusD;
         $this->numberFrom = $numberFrom;
     }
 

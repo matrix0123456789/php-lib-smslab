@@ -27,13 +27,13 @@ class SmsIn
         $receiveTimeDT = new \DateTime();
         $receiveTimeDT->setTimestamp($receiveTime);
 
-        $this->id = $id;
-        $this->count = $count;
-        $this->content = $content;
-        $this->numberTo = $numberTo;
+        $this->id          = $id;
+        $this->count       = $count;
+        $this->content     = $content;
+        $this->numberTo    = $numberTo;
         $this->receiveTime = $receiveTimeDT;
-        $this->numberFrom = $numberFrom;
-        $this->status = $status;
+        $this->numberFrom  = $numberFrom;
+        $this->status      = $status;
     }
 
     public static function createFromResponseObject(\stdClass $respObj)
