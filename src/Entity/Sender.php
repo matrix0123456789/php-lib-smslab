@@ -16,8 +16,8 @@ class Sender
      */
     public function __construct($id, $name, $sender)
     {
-        $this->id = $id;
-        $this->name = $name;
+        $this->id     = $id;
+        $this->name   = $name;
         $this->sender = $sender;
     }
 
