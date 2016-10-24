@@ -19,7 +19,7 @@ before_script:
 script:
   - vendor/bin/phpunit --configuration phpunit.xml --colors --coverage-text --coverage-clover=coverage.clover
   - vendor/bin/phpcs --standard=PSR2 src
-  - vendor/bin/atoum
+#  - vendor/bin/atoum
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
