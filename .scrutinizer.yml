@@ -37,6 +37,8 @@ checks:
         line_length:
             max_length: '120'
         function_in_camel_caps: true
+        excluded_dependencies:
+          - atoum/atoum
 
 tools:
     external_code_coverage: true
