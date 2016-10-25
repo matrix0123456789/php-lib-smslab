@@ -127,7 +127,7 @@ class SmslabsClient
         $expirationMinutes = null,
         \DateTime $sendDateTime = null
     ) {
-        if ($this->checkPhoneNumber($phoneNumber) == false) {
+        if ($this->checkPhoneNumber($phoneNumber) === false) {
             throw new \InvalidArgumentException('Invalid phone number');
         }
 
