@@ -12,12 +12,12 @@ use Ittools\Smslabs\Exception\EmptySMSQueueException;
 
 class SmslabsClient
 {
-    const SEND_SMS_URL = '/sendSms';
-    const SENDERS_URL = '/senders';
+    const SEND_SMS_URL   = '/sendSms';
+    const SENDERS_URL    = '/senders';
     const SMS_STATUS_URL = '/smsStatus';
-    const SMS_LIST_URL = '/sms';
-    const SMS_IN_URL = '/smsIn';
-    const ACCOUNT_URL = '/account';
+    const SMS_LIST_URL   = '/sms';
+    const SMS_IN_URL     = '/smsIn';
+    const ACCOUNT_URL    = '/account';
 
     /**
      * @var HttpClient
@@ -156,7 +156,7 @@ class SmslabsClient
      */
     private function checkPhoneNumber($phoneNumber)
     {
-        return preg_match('/^\+[0-9]{10,13}$/', $phoneNumber);
+        return (bool)preg_match('/^\+[0-9]{10,13}$/', $phoneNumber);
     }
 
     /**

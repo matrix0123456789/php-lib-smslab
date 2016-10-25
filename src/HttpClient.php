@@ -31,7 +31,7 @@ class HttpClient
      */
     public function __construct($appKey, $secretKey)
     {
-        $this->appKey = $appKey;
+        $this->appKey    = $appKey;
         $this->secretKey = $secretKey;
     }
 
