@@ -160,11 +160,7 @@ class SmslabsClient
      */
     private function checkPhoneNumber($phoneNumber)
     {
-        if (preg_match('/\+[0-9]{10,13}/', $phoneNumber)) {
-            return true;
-        }
-
-        return false;
+        return preg_match('/\+[0-9]{10,13}/', $phoneNumber);
     }
 
     /**
@@ -277,7 +273,7 @@ class SmslabsClient
     }
 
     /**
-     * @return \array[]
+     * @return array[]
      */
     public function getSmsQueue()
     {
