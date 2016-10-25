@@ -127,11 +127,7 @@ class SmslabsClient
         $expirationMinutes = null,
         \DateTime $sendDateTime = null
     ) {
-        if (strlen($phoneNumber) == 9) {
-            $phoneNumber = '+48'.$phoneNumber;
-        }
-
-        if ($this->checkPhoneNumber($phoneNumber) === false) {
+        if ($this->checkPhoneNumber($phoneNumber) == false) {
             throw new \InvalidArgumentException('Invalid phone number');
         }
 
@@ -160,7 +156,7 @@ class SmslabsClient
      */
     private function checkPhoneNumber($phoneNumber)
     {
-        return preg_match('/\+[0-9]{10,13}/', $phoneNumber);
+        return preg_match('/^\+[0-9]{10,13}$/', $phoneNumber);
     }
 
     /**
