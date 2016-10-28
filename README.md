@@ -4,6 +4,7 @@ PHP client for SMSLabs.pl
 [![Build Status](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/?branch=master)
 [![Build Status](https://travis-ci.org/jpyzio/php-lib-smslab.svg?branch=master)](https://travis-ci.org/jpyzio/php-lib-smslab)
+[![Dependency Status](https://www.versioneye.com/user/projects/5813daa7d33a7126ff24ee52/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5813daa7d33a7126ff24ee52)
 
 ## Installation
 
