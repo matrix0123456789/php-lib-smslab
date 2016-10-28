@@ -1,5 +1,5 @@
 {
-  "name": "ittools/php-lib-smslabs",
+  "name": "ittoolspl/php-lib-smslabs",
   "description": "PHP client for SMSLabs.pl",
   "type": "library",
   "license": "MIT",
