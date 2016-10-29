@@ -39,7 +39,7 @@ class HttpClient
      * @param string $url
      * @param array $data
      * @param string $method
-     * @return \stdClass
+     * @return array
      * @throws InvalidResponseException
      */
     public function sendRequest($url, $data = null, $method = 'GET')
