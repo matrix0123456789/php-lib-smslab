@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cd0c9d0cea6b9ec38139a9ab33a6dfa8",
-    "content-hash": "35ab55296905fb67e55cbf9382cfac7b",
+    "hash": "9958b8c044356e72d274219fdac65036",
+    "content-hash": "6ace5ca7bfb0315761c4e6a3cc4b2cc7",
     "packages": [
         {
             "name": "atoum/atoum",

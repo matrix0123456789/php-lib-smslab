@@ -12,8 +12,8 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Ittools\\Smslabs\\": "src/",
-      "Ittools\\Smslabs\\Tests\\": "tests/"
+      "Ittoolspl\\Smslabs\\": "src/",
+      "Ittoolspl\\Smslabs\\Tests\\": "tests/"
     }
   },
   "require": {
