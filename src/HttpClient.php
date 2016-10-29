@@ -130,5 +130,4 @@ class HttpClient
     {
         $this->secretKey = $secretKey;
     }
-    
 }
