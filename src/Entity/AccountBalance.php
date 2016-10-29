@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittools\Smslabs\Entity;
+namespace Ittoolspl\Smslabs\Entity;
 
 class AccountBalance
 {

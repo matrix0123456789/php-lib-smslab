@@ -1,9 +1,9 @@
 <?php
 
-namespace Ittools\Smslabs;
+namespace Ittoolspl\Smslabs;
 
 use GuzzleHttp\Client;
-use Ittools\Smslabs\Exception\InvalidResponseException;
+use Ittoolspl\Smslabs\Exception\InvalidResponseException;
 
 class HttpClient
 {

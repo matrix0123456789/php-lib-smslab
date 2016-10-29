@@ -1,14 +1,14 @@
 <?php
 
-namespace Ittools\Smslabs;
+namespace Ittoolspl\Smslabs;
 
-use Ittools\Smslabs\Entity\AccountBalance;
-use Ittools\Smslabs\Entity\Sender;
-use Ittools\Smslabs\Entity\SmsDetails;
-use Ittools\Smslabs\Entity\SmsIn;
-use Ittools\Smslabs\Entity\SmsOut;
-use Ittools\Smslabs\Entity\SmsSentResponse;
-use Ittools\Smslabs\Exception\EmptySMSQueueException;
+use Ittoolspl\Smslabs\Entity\AccountBalance;
+use Ittoolspl\Smslabs\Entity\Sender;
+use Ittoolspl\Smslabs\Entity\SmsDetails;
+use Ittoolspl\Smslabs\Entity\SmsIn;
+use Ittoolspl\Smslabs\Entity\SmsOut;
+use Ittoolspl\Smslabs\Entity\SmsSentResponse;
+use Ittoolspl\Smslabs\Exception\EmptySMSQueueException;
 
 class SmslabsClient
 {

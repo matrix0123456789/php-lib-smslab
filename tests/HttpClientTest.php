@@ -1,9 +1,9 @@
 <?php
 
-namespace Ittools\Smslabs\Tests;
+namespace Ittoolspl\Smslabs\Tests;
 
 use GuzzleHttp\Exception\ClientException;
-use Ittools\Smslabs\HttpClient;
+use Ittoolspl\Smslabs\HttpClient;
 
 class HttpClientTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittools\Smslabs\Entity;
+namespace Ittoolspl\Smslabs\Entity;
 
 class SmsIn
 {
@@ -18,7 +18,7 @@ class SmsIn
      * @param int $count
      * @param string $content
      * @param string $numberTo
-     * @param \DateTime $receiveTime
+     * @param int $receiveTime
      * @param string $numberFrom
      * @param int $status
      */

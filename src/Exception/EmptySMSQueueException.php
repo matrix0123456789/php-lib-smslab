@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittools\Smslabs\Exception;
+namespace Ittoolspl\Smslabs\Exception;
 
 class EmptySMSQueueException extends \RuntimeException
 {

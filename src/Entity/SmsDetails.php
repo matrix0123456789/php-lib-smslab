@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittools\Smslabs\Entity;
+namespace Ittoolspl\Smslabs\Entity;
 
 class SmsDetails
 {
@@ -36,7 +36,7 @@ class SmsDetails
     /**
      * Creates SmsDetails object by array
      * @param \stdClass $sms
-     * @return \Ittools\Smslabs\Entity\SmsDetails
+     * @return \Ittoolspl\Smslabs\Entity\SmsDetails
      */
     public static function createFromResponseObject(\stdClass $sms)
     {
