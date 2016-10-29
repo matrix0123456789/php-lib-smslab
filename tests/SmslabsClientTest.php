@@ -3,7 +3,6 @@
 namespace Ittoolspl\Smslabs\Tests;
 
 use GuzzleHttp\Exception\ClientException;
-use Ittoolspl\Smslabs\HttpClient;
 use Ittoolspl\Smslabs\SmslabsClient;
 
 class SmslabsClientTest extends \PHPUnit_Framework_TestCase
@@ -107,7 +106,9 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $httpClientMock = \Mockery::mock('HttpClient');
-        $httpClientMock->shouldReceive('sendRequest')->andReturn($account);
+        $httpClientMock
+            ->shouldReceive('sendRequest')
+            ->andReturn($account);
 
         $sms = new SmslabsClient('', '');
         $sms->setSenderId('ITTools.pl');

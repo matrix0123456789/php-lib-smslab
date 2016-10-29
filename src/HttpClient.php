@@ -98,4 +98,37 @@ class HttpClient
     {
         $this->client = $client;
     }
+
+    /**
+     * @return string
+     */
+    public function getAppKey(): string
+    {
+        return $this->appKey;
+    }
+
+    /**
+     * @param string $appKey
+     */
+    public function setAppKey(string $appKey)
+    {
+        $this->appKey = $appKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecretKey(): string
+    {
+        return $this->secretKey;
+    }
+
+    /**
+     * @param string $secretKey
+     */
+    public function setSecretKey(string $secretKey)
+    {
+        $this->secretKey = $secretKey;
+    }
+    
 }

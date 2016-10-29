@@ -14,10 +14,13 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
         \Mockery::close();
     }
 
-    public function testHttpClientInvalidCredentials()
+    /**
+     * @covers \Ittoolspl\Smslabs\HttpClient
+     */
+    public function testHttpClientAppKeySecretKey()
     {
-        $this->expectException(ClientException::class);
-        $this->client = new HttpClient('invalidKey', 'invalidSecret');
-        $this->client->sendRequest('/');
+        $httpClient = new HttpClient('appKey', 'secret');
+        $this->assertEquals('appKey', $httpClient->getAppKey());
+        $this->assertEquals('secret', $httpClient->getSecretKey());
     }
 }
