@@ -175,7 +175,7 @@ class SmslabsClient
         foreach ($this->smsToSend as $key => $sms) {
             $httpResponse = $this->client->sendRequest(self::SEND_SMS_URL, $sms, 'PUT');
 
-            $this->smsStatus[] = new SmsSentResponse($httpResponse->account, $httpResponse->sms_id);
+            $this->smsStatus[] = new SmsSentResponse($httpResponse['account'], $httpResponse['sms_id']);
 
             unset($this->smsToSend[$key]);
         }
@@ -201,7 +201,7 @@ class SmslabsClient
         $list = [];
 
         foreach ($sendersResponse as $sender) {
-            $list[] = Sender::createFromResponseObject($sender);
+            $list[] = Sender::createFromResponseArray($sender);
         }
 
         return $list;
@@ -214,7 +214,7 @@ class SmslabsClient
     {
         $balanceResponse = $this->client->sendRequest(self::ACCOUNT_URL);
 
-        return new AccountBalance($balanceResponse->account / 100);
+        return new AccountBalance($balanceResponse['account'] / 100);
     }
 
     /**
@@ -227,7 +227,7 @@ class SmslabsClient
         $list = [];
 
         foreach ($smsInResponse as $smsIn) {
-            $list[] = SmsIn::createFromResponseObject($smsIn);
+            $list[] = SmsIn::createFromResponseArray($smsIn);
         }
 
         return $list;
@@ -245,7 +245,7 @@ class SmslabsClient
         $list = [];
 
         foreach ($smsOutResponse as $smsOut) {
-            $list[] = SmsOut::createFromResponseObject($smsOut);
+            $list[] = SmsOut::createFromResponseArray($smsOut);
         }
 
         return $list;
@@ -263,7 +263,7 @@ class SmslabsClient
 
         $detailsResponse = $this->client->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
 
-        $smsDetails = SmsDetails::createFromResponseObject($detailsResponse);
+        $smsDetails = SmsDetails::createFromResponseArray($detailsResponse);
 
         return $smsDetails;
     }

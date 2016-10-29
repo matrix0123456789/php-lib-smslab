@@ -35,19 +35,19 @@ class SmsDetails
 
     /**
      * Creates SmsDetails object by array
-     * @param \stdClass $sms
+     * @param array $response
      * @return \Ittoolspl\Smslabs\Entity\SmsDetails
      */
-    public static function createFromResponseObject(\stdClass $sms)
+    public static function createFromResponseArray(array $response)
     {
         return new self(
-            $sms->id,
-            $sms->from,
-            $sms->number_to,
-            $sms->status,
-            $sms->sms_count,
-            $sms->sms_content,
-            ($sms->price / 100)
+            $response['id'],
+            $response['from'],
+            $response['number_to'],
+            $response['status'],
+            $response['sms_count'],
+            $response['sms_content'],
+            ($response['price'] / 100)
         );
     }
 

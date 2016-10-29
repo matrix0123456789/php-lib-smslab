@@ -36,16 +36,20 @@ class SmsIn
         $this->status      = $status;
     }
 
-    public static function createFromResponseObject(\stdClass $respObj)
+    /**
+     * @param array $response
+     * @return SmsIn
+     */
+    public static function createFromResponseArray(array $response)
     {
         return new self(
-            $respObj->_id,
-            $respObj->s_cnt,
-            $respObj->s_con,
-            $respObj->no_to,
-            $respObj->in_t,
-            $respObj->no_fr,
-            $respObj->stat
+            $response['_id'],
+            $response['s_cnt'],
+            $response['s_con'],
+            $response['no_to'],
+            $response['in_t'],
+            $response['no_fr'],
+            $response['stat']
         );
     }
 

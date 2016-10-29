@@ -21,12 +21,16 @@ class Sender
         $this->sender = $sender;
     }
 
-    public static function createFromResponseObject(\stdClass $respObj)
+    /**
+     * @param array $response
+     * @return Sender
+     */
+    public static function createFromResponseArray(array $response)
     {
         return new self(
-            $respObj->id,
-            $respObj->name,
-            $respObj->sender
+            $response['id'],
+            $response['name'],
+            $response['sender']
         );
     }
 

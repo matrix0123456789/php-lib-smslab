@@ -61,22 +61,22 @@ class SmsOut
     }
 
     /**
-     * @param \stdClass $respObj
+     * @param array $response
      * @return SmsOut
      */
-    public static function createFromResponseObject(\stdClass $respObj)
+    public static function createFromResponseArray(array $response)
     {
         return new self(
-            $respObj->_id,
-            property_exists($respObj, 'del_t') ? $respObj->del_t : null,
-            $respObj->s_cnt,
-            $respObj->price,
-            $respObj->s_con,
-            $respObj->no_to,
-            $respObj->in_t,
-            $respObj->stat,
-            $respObj->stat_d,
-            $respObj->no_fr
+            $response['_id'],
+            array_key_exists('del_t', $response) ? $response['del_t'] : null,
+            $response['s_cnt'],
+            $response['price'],
+            $response['s_con'],
+            $response['no_to'],
+            $response['in_t'],
+            $response['stat'],
+            $response['stat_d'],
+            $response['no_fr']
         );
     }
 

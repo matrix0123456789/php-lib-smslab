@@ -57,15 +57,19 @@ class HttpClient
 
         $bodyJson = (string)$response->getBody();
 
-        $bodyObj = \GuzzleHttp\json_decode($bodyJson);
+        $bodyArr = \GuzzleHttp\json_decode($bodyJson, true);
 
-        if (!property_exists($bodyObj, 'data')) {
+        if (!array_key_exists('data', $bodyArr)) {
             throw new InvalidResponseException('Missing data property in response');
         }
 
-        return $bodyObj->data;
+        return $bodyArr['data'];
     }
 
+    /**
+     * @param string $method
+     * @return bool
+     */
     private function validateMethod($method)
     {
         if (!in_array($method, ['POST', 'PUT', 'GET', 'DELETE'])) {
