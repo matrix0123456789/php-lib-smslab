@@ -102,7 +102,7 @@ class HttpClient
     /**
      * @return string
      */
-    public function getAppKey(): string
+    public function getAppKey()
     {
         return $this->appKey;
     }
