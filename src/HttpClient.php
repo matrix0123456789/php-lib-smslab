@@ -118,7 +118,7 @@ class HttpClient
     /**
      * @return string
      */
-    public function getSecretKey(): string
+    public function getSecretKey()
     {
         return $this->secretKey;
     }
