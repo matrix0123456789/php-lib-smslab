@@ -7,8 +7,6 @@ use Ittoolspl\Smslabs\SmslabsClient;
 
 class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 {
-    private $client;
-
     private $validResult = [
         0 => [
             'phone_number' => '+48790222500',
@@ -27,8 +25,8 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
     public function testSmslabsClientInvalidCredentials()
     {
         $this->expectException(ClientException::class);
-        $this->client = new SmslabsClient('', '');
-        $this->client->getAccountBalance();
+        $client = new SmslabsClient('', '');
+        $client->getAccountBalance();
     }
 
     public function testSmslabsClientAddSmsToQueueValid()

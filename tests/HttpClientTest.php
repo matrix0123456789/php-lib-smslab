@@ -2,13 +2,10 @@
 
 namespace Ittoolspl\Smslabs\Tests;
 
-use GuzzleHttp\Exception\ClientException;
 use Ittoolspl\Smslabs\HttpClient;
 
 class HttpClientTest extends \PHPUnit_Framework_TestCase
 {
-    private $client;
-
     protected function tearDown()
     {
         \Mockery::close();
