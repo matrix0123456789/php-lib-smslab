@@ -3,6 +3,7 @@
 namespace Ittoolspl\Smslabs\Tests;
 
 use GuzzleHttp\Exception\ClientException;
+use Ittoolspl\Smslabs\HttpClient;
 use Ittoolspl\Smslabs\SmslabsClient;
 
 class SmslabsClientTest extends \PHPUnit_Framework_TestCase
@@ -18,6 +19,11 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
             'sender_id' => 'ITTools',
         ],
     ];
+
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
 
     public function testSmslabsClientInvalidCredentials()
     {
@@ -63,7 +69,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $sms = new  SmslabsClient('', '');
+        $sms = new SmslabsClient('', '');
         $sms->setSenderId('ITTools');
         $sms->add('+48790222500', 'Top secret SMS');
         $sms->add('+48790222501', 'Top secret SMM');
@@ -88,8 +94,30 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid phone number');
 
-        $sms = new  SmslabsClient('', '');
+        $sms = new SmslabsClient('', '');
         $sms->setSenderId('ITTools');
         $sms->add('+48222500', 'Not secret SMS');
+    }
+
+    public function testSmslabsClientSendValid()
+    {
+        $account = [
+            'account' => 1593,
+            'sms_id' => '5813f6f4b5ca20c1767b23ca',
+        ];
+
+        $httpClientMock = \Mockery::mock('HttpClient');
+        $httpClientMock->shouldReceive('sendRequest')->andReturn($account);
+
+        $sms = new SmslabsClient('', '');
+        $sms->setSenderId('ITTools.pl');
+        $sms->add('+48790222500', 'test1');
+        $sms->setClient($httpClientMock);
+        $sms->send();
+
+        $status = $sms->getSentStatus();
+
+        $this->assertEquals(1593, $status[0]->getAccount());
+        $this->assertEquals('5813f6f4b5ca20c1767b23ca', $status[0]->getSmsId());
     }
 }

@@ -65,6 +65,14 @@ class SmslabsClient
     }
 
     /**
+     * @param HttpClient $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
      * @param boolean $isFlashMessage
      * @return SmslabsClient $this
      */

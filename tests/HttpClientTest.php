@@ -9,6 +9,11 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
 {
     private $client;
 
+    protected function tearDown()
+    {
+        \Mockery::close();
+    }
+
     public function testHttpClientInvalidCredentials()
     {
         $this->expectException(ClientException::class);
