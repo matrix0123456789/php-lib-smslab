@@ -1,9 +1,9 @@
 PHP client for SMSLabs.pl
 ======
 [![Licence MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jpyzio/php-lib-smslab/?branch=master)
-[![Build Status](https://travis-ci.org/ittoolspl/php-lib-smslab.svg?branch=master)](https://travis-ci.org/jpyzio/php-lib-smslab)
+[![Build Status](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/?branch=master)
+[![Build Status](https://travis-ci.org/ittoolspl/php-lib-smslab.svg?branch=master)](https://travis-ci.org/ittoolspl/php-lib-smslab)
 [![Dependency Status](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb)
 
 ## Installation
