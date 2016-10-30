@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests;
 
-use GuzzleHttp\Exception\ClientException;
+use Ittoolspl\Smslabs\Exception\EmptySMSQueueException;
 use Ittoolspl\Smslabs\SmslabsClient;
 
 class SmslabsClientTest extends \PHPUnit_Framework_TestCase
@@ -22,16 +22,12 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         \Mockery::close();
     }
 
-    public function testSmslabsClientInvalidCredentials()
-    {
-        $this->expectException(ClientException::class);
-        $client = new SmslabsClient('', '');
-        $client->getAccountBalance();
-    }
-
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
     public function testSmslabsClientAddSmsToQueueValid()
     {
-        $sms = new  SmslabsClient('', '');
+        $sms = new  SmslabsClient('test', 'test');
         $sms->setSenderId('ITTools');
         $sms->add('+48790222500', 'Top secret SMS');
         $queue = $sms->getSmsQueue();
@@ -40,6 +36,9 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $queue);
     }
 
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
     public function testSmslabsClientAddSmsToQueueValidThreeMsg()
     {
         $validResultThree = [
@@ -66,7 +65,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $sms = new SmslabsClient('', '');
+        $sms = new SmslabsClient('test', 'test');
         $sms->setSenderId('ITTools');
         $sms->add('+48790222500', 'Top secret SMS');
         $sms->add('+48790222501', 'Top secret SMM');
@@ -77,26 +76,78 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(3, $queue);
     }
 
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
     public function testSmslabsClientAddSmsToQueueInvalidMessage()
     {
-        $sms = new  SmslabsClient('', '');
+        $sms = new  SmslabsClient('test', 'test');
         $sms->setSenderId('ITTools');
         $sms->add('+48790222500', 'Not secret SMS');
 
         $this->assertNotTrue($this->validResult == $sms->getSmsQueue());
     }
 
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
     public function testSmslabsClientAddSmsToQueueInvalidNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid phone number');
 
-        $sms = new SmslabsClient('', '');
+        $sms = new SmslabsClient('test', 'test');
         $sms->setSenderId('ITTools');
         $sms->add('+48222500', 'Not secret SMS');
     }
 
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
     public function testSmslabsClientSendValid()
+    {
+        $sms = new SmslabsClient('test', 'test');
+        $sms->setSenderId('ITTools.pl');
+        $sms->add('+48790222500', 'test1');
+        $sms->setClient($this->mockHttpClient());
+        $sms->send();
+
+        $status = $sms->getSentStatus();
+
+        $this->assertEquals(1593, $status[0]->getAccount());
+        $this->assertEquals('5813f6f4b5ca20c1767b23ca', $status[0]->getSmsId());
+    }
+
+    /**
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
+    public function testSmslabsClientSendEmptyQueue()
+    {
+        $this->expectException(EmptySMSQueueException::class);
+        $this->expectExceptionMessage('No messages to send');
+
+        $sms = new SmslabsClient('test', 'test');
+        $sms->setSenderId('ITTools.pl');
+        $sms->setClient($this->mockHttpClient());
+        $sms->send();
+    }
+
+    /**
+     * @covers \Ittoolspl\Smslabs\HttpClient
+     * @covers \Ittoolspl\Smslabs\SmslabsClient
+     */
+    public function testSmslabsClientSendMissingSenderId()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('SenderId is missing');
+
+        $sms = new SmslabsClient('test', 'test');
+        $sms->add('+48790222500', 'test1');
+        $sms->setClient($this->mockHttpClient());
+        $sms->send();
+    }
+
+    private function mockHttpClient()
     {
         $account = [
             'account' => 1593,
@@ -108,15 +159,6 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('sendRequest')
             ->andReturn($account);
 
-        $sms = new SmslabsClient('', '');
-        $sms->setSenderId('ITTools.pl');
-        $sms->add('+48790222500', 'test1');
-        $sms->setClient($httpClientMock);
-        $sms->send();
-
-        $status = $sms->getSentStatus();
-
-        $this->assertEquals(1593, $status[0]->getAccount());
-        $this->assertEquals('5813f6f4b5ca20c1767b23ca', $status[0]->getSmsId());
+        return $httpClientMock;
     }
 }
