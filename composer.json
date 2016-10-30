@@ -26,6 +26,6 @@
     "phpunit/phpunit": "^5.6",
     "mockery/mockery": "^0.9.5",
     "phpunit/php-code-coverage": "^4.0",
-    "atoum/autoloop-extension": "^0.1.0"
+    "humbug/humbug": "~1.0@dev"
   }
 }
