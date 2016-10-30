@@ -1,5 +1,6 @@
-coverage-dir/
 composer.phar
 /vendor/
 /.idea/
+/build/
+!/build/.gitkeep
 index.php
