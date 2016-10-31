@@ -57,7 +57,12 @@ class HttpClient
 
         $bodyJson = (string)$response->getBody();
 
-        $bodyArr = \GuzzleHttp\json_decode($bodyJson, true);
+        try {
+            $bodyArr = \GuzzleHttp\json_decode($bodyJson, true);
+
+        } catch (\InvalidArgumentException $e) {
+            throw new InvalidResponseException('Invalid JSON data');
+        }
 
         if (!array_key_exists('data', $bodyArr)) {
             throw new InvalidResponseException('Missing data property in response');
