@@ -65,11 +65,27 @@ class SmslabsClient
     }
 
     /**
+     * @return HttpClient
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
      * @param HttpClient $client
      */
     public function setClient($client)
     {
         $this->client = $client;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsFlashMessage()
+    {
+        return $this->isFlashMessage;
     }
 
     /**
@@ -84,6 +100,14 @@ class SmslabsClient
     }
 
     /**
+     * @return string
+     */
+    public function getSenderId()
+    {
+        return $this->senderId;
+    }
+
+    /**
      * @param string $senderId
      * @return SmslabsClient $this
      */
@@ -95,10 +119,18 @@ class SmslabsClient
     }
 
     /**
+     * @return int
+     */
+    public function getExpirationMinutes()
+    {
+        return $this->expirationMinutes;
+    }
+
+    /**
      * @param int $expirationMinutes
      * @return SmslabsClient $this
      */
-    public function setExpiration($expirationMinutes)
+    public function setExpirationMinutes($expirationMinutes)
     {
         if ($expirationMinutes < 1 || $expirationMinutes > 5520) {
             throw new \InvalidArgumentException('Valid values: 1 - 5520');
@@ -110,10 +142,18 @@ class SmslabsClient
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getSendDateTime()
+    {
+        return $this->sendDateTime;
+    }
+
+    /**
      * @param \DateTime $sendDateTime
      * @return SmslabsClient $this
      */
-    public function setSendDate(\DateTime $sendDateTime)
+    public function setSendDateTime(\DateTime $sendDateTime)
     {
         $this->sendDateTime = $sendDateTime;
 

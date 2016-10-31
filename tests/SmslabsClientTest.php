@@ -9,11 +9,18 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 {
     private $validResult = [
         0 => [
-            'phone_number' => '+48790222500',
+            'phone_number' => '+48790000000',
             'message' => 'Top secret SMS',
             'flash' => 0,
             'expiration' => 0,
-            'sender_id' => 'ITTools',
+            'sender_id' => 'ITtools',
+        ],
+        1 => [
+            'phone_number' => '+48790000000',
+            'message' => 'message',
+            'flash' => true,
+            'expiration' => 10,
+            'sender_id' => 'ITtools',
         ],
     ];
 
@@ -22,128 +29,126 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         \Mockery::close();
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientAddSmsToQueueValid()
     {
-        $sms = new  SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools');
-        $sms->add('+48790222500', 'Top secret SMS');
+        $sms = new  SmslabsClient('', '');
+        $sms->setSenderId('ITtools');
+        $sms->add('+48790000000', 'Top secret SMS');
+        $sms->add('+48790000000', 'message', true, 10);
         $queue = $sms->getSmsQueue();
 
         $this->assertTrue($this->validResult == $queue);
-        $this->assertCount(1, $queue);
+        $this->assertCount(2, $queue);
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientAddSmsToQueueValidThreeMsg()
     {
         $validResultThree = [
             0 => [
-                'phone_number' => '+48790222500',
+                'phone_number' => '+48790000000',
                 'message' => 'Top secret SMS',
                 'flash' => 0,
                 'expiration' => 0,
-                'sender_id' => 'ITTools',
+                'sender_id' => 'ITtools',
             ],
             1 => [
-                'phone_number' => '+48790222501',
+                'phone_number' => '+48790000001',
                 'message' => 'Top secret SMM',
                 'flash' => 0,
                 'expiration' => 0,
-                'sender_id' => 'ITTools',
+                'sender_id' => 'ITtools',
             ],
             2 => [
-                'phone_number' => '+48790222502',
+                'phone_number' => '+48790000002',
                 'message' => 'Top secret SMV',
                 'flash' => 0,
                 'expiration' => 0,
-                'sender_id' => 'ITTools',
+                'sender_id' => 'ITtools',
             ],
         ];
 
-        $sms = new SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools');
-        $sms->add('+48790222500', 'Top secret SMS');
-        $sms->add('+48790222501', 'Top secret SMM');
-        $sms->add('+48790222502', 'Top secret SMV');
+        $sms = new SmslabsClient('', '');
+        $sms->setSenderId('ITtools');
+        $sms->add('+48790000000', 'Top secret SMS');
+        $sms->add('+48790000001', 'Top secret SMM');
+        $sms->add('+48790000002', 'Top secret SMV');
         $queue = $sms->getSmsQueue();
 
         $this->assertTrue($validResultThree == $queue);
         $this->assertCount(3, $queue);
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientAddSmsToQueueInvalidMessage()
     {
-        $sms = new  SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools');
-        $sms->add('+48790222500', 'Not secret SMS');
+        $sms = new  SmslabsClient('', '');
+        $sms->setSenderId('ITtools');
+        $sms->add('+48790000000', 'Not secret SMS');
 
         $this->assertNotTrue($this->validResult == $sms->getSmsQueue());
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientAddSmsToQueueInvalidNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid phone number');
 
-        $sms = new SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools');
-        $sms->add('+48222500', 'Not secret SMS');
+        $sms = new SmslabsClient('', '');
+        $sms->setSenderId('ITtools');
+        $sms->add('+48000000', 'Not secret SMS');
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientSendValid()
     {
-        $sms = new SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools.pl');
-        $sms->add('+48790222500', 'test1');
+        $sendDate = new \DateTime();
+
+        $sms = new SmslabsClient('', '');
+        $sms->setSenderId('ITtools.pl');
+        $sms->setIsFlashMessage(true);
+        $sms->setExpirationMinutes(900);
+        $sms->setSendDateTime($sendDate);
+        $sms->add('+48790000000', 'message');
         $sms->setClient($this->mockHttpClient());
         $sms->send();
 
         $status = $sms->getSentStatus();
 
+
+        $this->assertInstanceOf('HttpClient', $sms->getClient());
+        $this->assertEquals('ITtools.pl', $sms->getSenderId());
+        $this->assertTrue($sms->isIsFlashMessage());
+        $this->assertEquals(900, $sms->getExpirationMinutes());
+        $this->assertEquals($sendDate, $sms->getSendDateTime());
         $this->assertEquals(1593, $status[0]->getAccount());
         $this->assertEquals('5813f6f4b5ca20c1767b23ca', $status[0]->getSmsId());
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
     public function testSmslabsClientSendEmptyQueue()
     {
         $this->expectException(EmptySMSQueueException::class);
         $this->expectExceptionMessage('No messages to send');
 
-        $sms = new SmslabsClient('test', 'test');
-        $sms->setSenderId('ITTools.pl');
+        $sms = new SmslabsClient('', '');
+        $sms->setSenderId('valid');
         $sms->setClient($this->mockHttpClient());
         $sms->send();
     }
 
-    /**
-     * @covers \Ittoolspl\Smslabs\HttpClient
-     * @covers \Ittoolspl\Smslabs\SmslabsClient
-     */
+    public function testSmslabsClientSendInvalidExpirationMinutes()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Valid values: 1 - 5520');
+
+        $sms = new SmslabsClient('', '');
+        $sms->setExpirationMinutes(0);
+    }
+
     public function testSmslabsClientSendMissingSenderId()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('SenderId is missing');
 
-        $sms = new SmslabsClient('test', 'test');
-        $sms->add('+48790222500', 'test1');
-        $sms->setClient($this->mockHttpClient());
+        $sms = new SmslabsClient('', '');
+        $sms->add('+48790000000', 'message');
         $sms->send();
     }
 

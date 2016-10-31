@@ -52,7 +52,7 @@ class HttpClient
         ]);
 
         if ($response->getStatusCode() != 200) {
-            throw new InvalidResponseException();
+            throw new InvalidResponseException('Invalid HTTP code');
         }
 
         $bodyJson = (string)$response->getBody();

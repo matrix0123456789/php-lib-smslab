@@ -24,7 +24,7 @@ $sms = new \Ittoolspl\Smslabs\SmslabsClient($appKey, $secret);
 **Send SMS:**
 ```
 $sms->setSenderId($numberOrSenderId)
-    ->setExpiration($minutes) // optionally
+    ->setExpirationMinutes($minutes) // optionally
     ->setSendDate($dateTime) // optionally
     ->setIsFlashMessage($isFlashMessage) // optionally
     ->add($number, $message)
