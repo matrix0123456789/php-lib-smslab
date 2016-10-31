@@ -110,7 +110,7 @@ class HttpClient
     /**
      * @param string $appKey
      */
-    public function setAppKey(string $appKey)
+    public function setAppKey($appKey)
     {
         $this->appKey = $appKey;
     }
@@ -126,7 +126,7 @@ class HttpClient
     /**
      * @param string $secretKey
      */
-    public function setSecretKey(string $secretKey)
+    public function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
     }
