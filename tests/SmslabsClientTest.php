@@ -3,6 +3,7 @@
 namespace Ittoolspl\Smslabs\Tests;
 
 use Ittoolspl\Smslabs\Exception\EmptySMSQueueException;
+use Ittoolspl\Smslabs\HttpClient;
 use Ittoolspl\Smslabs\SmslabsClient;
 
 class SmslabsClientTest extends \PHPUnit_Framework_TestCase
@@ -112,8 +113,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 
         $status = $sms->getSentStatus();
 
-
-        $this->assertInstanceOf('HttpClient', $sms->getClient());
+        $this->assertInstanceOf(HttpClient::class, $sms->getClient());
         $this->assertEquals('ITtools.pl', $sms->getSenderId());
         $this->assertTrue($sms->isIsFlashMessage());
         $this->assertEquals(900, $sms->getExpirationMinutes());
@@ -159,7 +159,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
             'sms_id' => '5813f6f4b5ca20c1767b23ca',
         ];
 
-        $httpClientMock = \Mockery::mock('HttpClient');
+        $httpClientMock = \Mockery::mock(HttpClient::class);
         $httpClientMock
             ->shouldReceive('sendRequest')
             ->andReturn($account);

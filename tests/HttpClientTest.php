@@ -90,7 +90,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
 
     private function mockGuzzle($guzzleResponse)
     {
-        $httpClientMock = \Mockery::mock('Client');
+        $httpClientMock = \Mockery::mock(Client::class);
         $httpClientMock
             ->shouldReceive('request')
             ->andReturn($guzzleResponse);
