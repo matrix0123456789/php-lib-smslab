@@ -18,12 +18,12 @@ $ composer require ittoolspl/php-lib-smslabs
 ## Usage
 
 **Constructor:**
-```
+```php
 $sms = new \Ittoolspl\Smslabs\SmslabsClient($appKey, $secret);
  ```
 
 **Send SMS:**
-```
+```php
 $sms->setSenderId($numberOrSenderId)
     ->setExpirationMinutes($minutes) // optionally
     ->setSendDate($dateTime) // optionally
@@ -33,36 +33,39 @@ $sms->setSenderId($numberOrSenderId)
 ```
 
 **Show queued SMS (before send())**
-```
+```php
 $sms->getSmsQueue();
 ```
 
 **Get recently sent SMS status (after send()):**
-```
+```php
 $sms->getSentStatus();
 ```
 
 **Get available SenderId:**
-```
+```php
 $sms->getAvailableSenders();
 ```
 
 **Account Balance:**
-```
+```php
 $sms->getAccountBalance();
 ```
 
 **Check incoming SMS:**
-```
+```php
 $sms->getSmsIn();
 ```
 
 **Check sent SMS:**
-```
+```php
 $sms->getSmsOut($offset, $limit);
 ```
 
 **Check details of SMS:**
-```
+```php
 $sms->getSmsDetails();
 ```
+
+## License
+php-lib-smslab is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
