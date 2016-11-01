@@ -44,7 +44,7 @@ class HttpClient
      */
     public function sendRequest($url, $data = null, $method = 'GET')
     {
-        if ($this->validateMethod($method) === false) {
+        if ($this->validateHttpMethod($method) === false) {
             throw new \InvalidArgumentException('Invalid method');
         }
 
@@ -76,13 +76,9 @@ class HttpClient
      * @param string $method
      * @return bool
      */
-    private function validateMethod($method)
+    private function validateHttpMethod($method)
     {
-        if (!in_array($method, ['POST', 'PUT', 'GET', 'DELETE'])) {
-            return false;
-        }
-
-        return true;
+        return in_array($method, ['POST', 'PUT', 'GET', 'DELETE']);
     }
 
     /**
