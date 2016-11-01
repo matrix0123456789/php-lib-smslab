@@ -59,7 +59,6 @@ class HttpClient
 
         try {
             $bodyArr = \GuzzleHttp\json_decode($bodyJson, true);
-
         } catch (\InvalidArgumentException $e) {
             throw new InvalidResponseException('Invalid JSON data');
         }
