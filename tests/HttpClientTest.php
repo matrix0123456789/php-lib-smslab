@@ -24,7 +24,9 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
     public function testHttpClientSetAppKeyValid()
     {
         $httpClient = new HttpClient('invalid', 'invalid');
-        $httpClient->setAppKey('appKey');
+        $setAppKeyResult = $httpClient->setAppKey('appKey');
+
+        $this->assertInstanceOf(HttpClient::class, $setAppKeyResult);
         $this->assertEquals('appKey', $httpClient->getAppKey());
         $this->assertEquals('invalid', $httpClient->getSecretKey());
     }
@@ -32,7 +34,9 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
     public function testHttpClientSetSecretKeyValid()
     {
         $httpClient = new HttpClient('invalid', 'invalid');
-        $httpClient->setSecretKey('secret');
+        $setSecretResult = $httpClient->setSecretKey('secret');
+
+        $this->assertInstanceOf(HttpClient::class, $setSecretResult);
         $this->assertEquals('invalid', $httpClient->getAppKey());
         $this->assertEquals('secret', $httpClient->getSecretKey());
     }

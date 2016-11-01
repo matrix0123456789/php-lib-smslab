@@ -1,7 +1,8 @@
 <?php
 
-namespace Ittoolspl\Smslabs\Tests;
+namespace Ittoolspl\Smslabs\tests;
 
+use GuzzleHttp\Client;
 use Ittoolspl\Smslabs\Entity\Sender;
 use Ittoolspl\Smslabs\Entity\SmsDetails;
 use Ittoolspl\Smslabs\Entity\SmsIn;
@@ -42,12 +43,29 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 
         $sms = new  SmslabsClient('', '');
         $sms->setSenderId('ITtools');
-        $sms->add('+48790000000', 'Top secret SMS');
+        $addResult = $sms->add('+48790000000', 'Top secret SMS');
         $sms->add('+48790000000', 'message', true, 10, $sendDateTime);
         $queue = $sms->getSmsQueue();
 
         $this->assertTrue($this->validResult == $queue);
         $this->assertCount(2, $queue);
+        $this->assertInstanceOf(SmslabsClient::class, $addResult);
+    }
+
+    public function testSmslabsClientCheckSettersValid()
+    {
+        $sms = new  SmslabsClient('', '');
+        $setExpirationMinutesResult = $sms->setExpirationMinutes(1);
+        $setClientResult = $sms->setClient(new HttpClient('', ''));
+        $setSenderIdResult = $sms->setSenderId('');
+        $setFlashMessageResult = $sms->setFlashMessage(true);
+        $setSendDateTimeResult = $sms->setSendDateTime(new \DateTime());
+
+        $this->assertInstanceOf(SmslabsClient::class, $setExpirationMinutesResult);
+        $this->assertInstanceOf(SmslabsClient::class, $setSenderIdResult);
+        $this->assertInstanceOf(SmslabsClient::class, $setClientResult);
+        $this->assertInstanceOf(SmslabsClient::class, $setFlashMessageResult);
+        $this->assertInstanceOf(SmslabsClient::class, $setSendDateTimeResult);
     }
 
     public function testSmslabsClientAddSmsToQueueValidThreeMsg()
@@ -122,11 +140,12 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $sms->setSendDateTime($sendDate);
         $sms->add('+48790000000', 'message');
         $sms->setClient($this->mockHttpClient($response));
-        $sms->send();
+        $sendResult = $sms->send();
 
         $status = $sms->getSentStatus();
 
         $this->assertInstanceOf(HttpClient::class, $sms->getClient());
+        $this->assertInstanceOf(SmslabsClient::class, $sendResult);
         $this->assertEquals('ITtools.pl', $sms->getSenderId());
         $this->assertTrue($sms->isFlashMessage());
         $this->assertEquals(900, $sms->getExpirationMinutes());
