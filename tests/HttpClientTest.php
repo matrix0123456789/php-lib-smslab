@@ -74,7 +74,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
     public function testHttpClientInvalidMessageData()
     {
         $this->expectException(InvalidResponseException::class);
-        $this->expectExceptionMessage('Missing data property in response');
+        $this->expectExceptionMessage('Missing data array key in response');
 
         $guzzleResponse = new Response(200, [], '{}');
 
