@@ -74,10 +74,13 @@ class SmslabsClient
 
     /**
      * @param HttpClient $client
+     * @return $this
      */
-    public function setClient($client)
+    public function setClient(HttpClient $client)
     {
         $this->client = $client;
+
+        return $this;
     }
 
     /**
@@ -301,12 +304,11 @@ class SmslabsClient
 
     /**
      * @param string $smsId
+     * @return bool
      */
     private function isValidSmsId($smsId)
     {
-        if (!preg_match('/[0-9a-f]{24}/', $smsId)) {
-            throw new \InvalidArgumentException('Invalid SMS ID');
-        }
+        return (bool) preg_match('/[0-9a-f]{24}/', $smsId);
     }
 
     /**
@@ -315,7 +317,9 @@ class SmslabsClient
      */
     public function getSmsDetails($smsId)
     {
-        $this->isValidSmsId($smsId);
+        if ($this->isValidSmsId($smsId) === false) {
+            throw new \InvalidArgumentException('Invalid SMS ID');
+        }
 
         $detailsResponse = $this->client->sendRequest(self::SMS_STATUS_URL . '?id=' . $smsId);
 

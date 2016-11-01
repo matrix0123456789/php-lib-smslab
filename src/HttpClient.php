@@ -44,7 +44,9 @@ class HttpClient
      */
     public function sendRequest($url, $data = null, $method = 'GET')
     {
-        $this->validateMethod($method);
+        if ($this->validateMethod($method) === false) {
+            throw new \InvalidArgumentException('Invalid method');
+        }
 
         $response = $this->getClient()->request($method, self::API_URL.$url, [
             'auth' => [$this->appKey, $this->secretKey],
@@ -77,7 +79,7 @@ class HttpClient
     private function validateMethod($method)
     {
         if (!in_array($method, ['POST', 'PUT', 'GET', 'DELETE'])) {
-            throw new \InvalidArgumentException('Invalid method');
+            return false;
         }
 
         return true;
@@ -113,10 +115,13 @@ class HttpClient
 
     /**
      * @param string $appKey
+     * @return HttpClient $this
      */
     public function setAppKey($appKey)
     {
         $this->appKey = $appKey;
+
+        return $this;
     }
 
     /**
@@ -129,9 +134,12 @@ class HttpClient
 
     /**
      * @param string $secretKey
+     * @return HttpClient $this
      */
     public function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
+
+        return $this;
     }
 }
