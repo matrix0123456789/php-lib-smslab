@@ -59,14 +59,24 @@ class HttpClient
 
         $bodyJson = (string)$response->getBody();
 
+        return $this->parseJsonData($bodyJson);
+    }
+
+    /**
+     * @param string $json
+     * @return array
+     * @throws InvalidResponseException
+     */
+    private function parseJsonData($json)
+    {
         try {
-            $bodyArr = \GuzzleHttp\json_decode($bodyJson, true);
+            $bodyArr = \GuzzleHttp\json_decode($json, true);
         } catch (\InvalidArgumentException $e) {
             throw new InvalidResponseException('Invalid JSON data');
         }
 
         if (!array_key_exists('data', $bodyArr)) {
-            throw new InvalidResponseException('Missing data property in response');
+            throw new InvalidResponseException('Missing data array key in response');
         }
 
         return $bodyArr['data'];
