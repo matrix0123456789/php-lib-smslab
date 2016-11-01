@@ -39,10 +39,10 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
 
     public function testHttpClientValid()
     {
-        $guzzleResponse = new Response(200, [], \GuzzleHttp\json_encode(['data'=>'validData']));
+        $guzzleResponse = new Response(200, [], \GuzzleHttp\json_encode(['data' => 'validData']));
 
         $httpClient = new HttpClient('appKey', 'secret');
-        $httpClient->setClient($this->mockGuzzle($guzzleResponse));
+        $httpClient->setClient($this->mockGuzzleClient($guzzleResponse));
         $request = $httpClient->sendRequest('/validUrl', null, 'GET');
 
         $this->assertEquals('validData', $request);
@@ -60,10 +60,10 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidResponseException::class);
         $this->expectExceptionMessage('Invalid HTTP code');
 
-        $guzzleResponse = new Response(404, [], \GuzzleHttp\json_encode(['data'=>'inValidData']));
+        $guzzleResponse = new Response(404, [], \GuzzleHttp\json_encode(['data' => 'inValidData']));
 
         $httpClient = new HttpClient('appKey', 'secret');
-        $httpClient->setClient($this->mockGuzzle($guzzleResponse));
+        $httpClient->setClient($this->mockGuzzleClient($guzzleResponse));
         $httpClient->sendRequest('/validUrl', null, 'GET');
     }
 
@@ -75,7 +75,7 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
         $guzzleResponse = new Response(200, [], '{}');
 
         $httpClient = new HttpClient('appKey', 'secret');
-        $httpClient->setClient($this->mockGuzzle($guzzleResponse));
+        $httpClient->setClient($this->mockGuzzleClient($guzzleResponse));
         $httpClient->sendRequest('/validUrl', null, 'GET');
     }
 
@@ -88,7 +88,19 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
         $httpClient->sendRequest('/validUrl', null, 'TEST');
     }
 
-    private function mockGuzzle($guzzleResponse)
+    public function testHttpClientInvalidJsonResponse()
+    {
+        $this->expectException(InvalidResponseException::class);
+        $this->expectExceptionMessage('Invalid JSON data');
+
+        $guzzleResponse = new Response(200, [], '--');
+
+        $httpClient = new HttpClient('appKey', 'secret');
+        $httpClient->setClient($this->mockGuzzleClient($guzzleResponse));
+        $httpClient->sendRequest('/validUrl', null, 'GET');
+    }
+
+    private function mockGuzzleClient($guzzleResponse)
     {
         $httpClientMock = \Mockery::mock(Client::class);
         $httpClientMock

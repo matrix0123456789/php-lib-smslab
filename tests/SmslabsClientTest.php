@@ -104,18 +104,18 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 
         $sms = new SmslabsClient('', '');
         $sms->setSenderId('ITtools.pl');
-        $sms->setIsFlashMessage(true);
+        $sms->setFlashMessage(true);
         $sms->setExpirationMinutes(900);
         $sms->setSendDateTime($sendDate);
         $sms->add('+48790000000', 'message');
-        $sms->setClient($this->mockHttpClient());
+        $sms->setClient($this->mockHttpClientSendSms());
         $sms->send();
 
         $status = $sms->getSentStatus();
 
         $this->assertInstanceOf(HttpClient::class, $sms->getClient());
         $this->assertEquals('ITtools.pl', $sms->getSenderId());
-        $this->assertTrue($sms->isIsFlashMessage());
+        $this->assertTrue($sms->isFlashMessage());
         $this->assertEquals(900, $sms->getExpirationMinutes());
         $this->assertEquals($sendDate, $sms->getSendDateTime());
         $this->assertEquals(1593, $status[0]->getAccount());
@@ -128,18 +128,41 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('No messages to send');
 
         $sms = new SmslabsClient('', '');
-        $sms->setSenderId('valid');
-        $sms->setClient($this->mockHttpClient());
         $sms->send();
     }
 
-    public function testSmslabsClientSendInvalidExpirationMinutes()
+    public function testSmslabsClientSendInvalidExpirationMinutes0()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Valid values: 1 - 5520');
 
         $sms = new SmslabsClient('', '');
         $sms->setExpirationMinutes(0);
+    }
+
+    public function testSmslabsClientSendInvalidExpirationMinutes1()
+    {
+        $sms = new SmslabsClient('', '');
+        $sms->setExpirationMinutes(1);
+
+        $this->assertEquals(1, $sms->getExpirationMinutes());
+    }
+
+    public function testSmslabsClientSendInvalidExpirationMinutes5520()
+    {
+        $sms = new SmslabsClient('', '');
+        $sms->setExpirationMinutes(5520);
+
+        $this->assertEquals(5520, $sms->getExpirationMinutes());
+    }
+
+    public function testSmslabsClientSendInvalidExpirationMinutes5521()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Valid values: 1 - 5520');
+
+        $sms = new SmslabsClient('', '');
+        $sms->setExpirationMinutes(5521);
     }
 
     public function testSmslabsClientSendMissingSenderId()
@@ -152,7 +175,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $sms->send();
     }
 
-    private function mockHttpClient()
+    private function mockHttpClientSendSms()
     {
         $account = [
             'account' => 1593,

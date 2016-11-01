@@ -99,7 +99,7 @@ class HttpClient
     /**
      * @param Client $client
      */
-    public function setClient($client)
+    public function setClient(Client $client)
     {
         $this->client = $client;
     }

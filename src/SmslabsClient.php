@@ -83,7 +83,7 @@ class SmslabsClient
     /**
      * @return boolean
      */
-    public function isIsFlashMessage()
+    public function isFlashMessage()
     {
         return $this->isFlashMessage;
     }
@@ -92,7 +92,7 @@ class SmslabsClient
      * @param boolean $isFlashMessage
      * @return SmslabsClient $this
      */
-    public function setIsFlashMessage($isFlashMessage)
+    public function setFlashMessage($isFlashMessage)
     {
         $this->isFlashMessage = (bool)$isFlashMessage;
 
