@@ -1,6 +1,6 @@
 <?php
 
-namespace Ittoolspl\Smslabs\tests;
+namespace Ittoolspl\Smslabs\Tests;
 
 use Ittoolspl\Smslabs\Entity\Sender;
 use Ittoolspl\Smslabs\Entity\SmsDetails;
