@@ -12,12 +12,12 @@ use Ittoolspl\Smslabs\Exception\EmptySMSQueueException;
 
 class SmslabsClient
 {
-    const SEND_SMS_URL   = '/sendSms';
-    const SENDERS_URL    = '/senders';
+    const SEND_SMS_URL = '/sendSms';
+    const SENDERS_URL = '/senders';
     const SMS_STATUS_URL = '/smsStatus';
-    const SMS_LIST_URL   = '/sms';
-    const SMS_IN_URL     = '/smsIn';
-    const ACCOUNT_URL    = '/account';
+    const SMS_LIST_URL = '/sms';
+    const SMS_IN_URL = '/smsIn';
+    const ACCOUNT_URL = '/account';
 
     /**
      * @var HttpClient
@@ -288,7 +288,7 @@ class SmslabsClient
      */
     public function getSmsOut($offset = 0, $limit = 100)
     {
-        $smsOutResponse = $this->client->sendRequest(self::SMS_LIST_URL.'?offset='.$offset.'&limit='.$limit);
+        $smsOutResponse = $this->client->sendRequest(self::SMS_LIST_URL . '?offset=' . $offset . '&limit=' . $limit);
 
         $list = [];
 
@@ -301,15 +301,23 @@ class SmslabsClient
 
     /**
      * @param string $smsId
+     */
+    private function isValidSmsId($smsId)
+    {
+        if (!preg_match('/[0-9a-f]{24}/', $smsId)) {
+            throw new \InvalidArgumentException('Invalid SMS ID');
+        }
+    }
+
+    /**
+     * @param string $smsId
      * @return SmsDetails
      */
     public function getSmsDetails($smsId)
     {
-        if ($this->senderId === null) {
-            throw new \InvalidArgumentException('Sender ID');
-        }
+        $this->isValidSmsId($smsId);
 
-        $detailsResponse = $this->client->sendRequest(self::SMS_STATUS_URL.'?id='.$smsId);
+        $detailsResponse = $this->client->sendRequest(self::SMS_STATUS_URL . '?id=' . $smsId);
 
         $smsDetails = SmsDetails::createFromResponseArray($detailsResponse);
 
