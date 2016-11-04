@@ -6,9 +6,6 @@ use Ittoolspl\Smslabs\Entity\Sender;
 
 class SenderTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Ittoolspl\Smslabs\Entity\Sender
-     */
     public function testValid()
     {
         $senderData = ['id' => 'id', 'name' => 'name', 'sender' => 'sender'];

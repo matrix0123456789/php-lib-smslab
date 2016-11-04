@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
@@ -12,7 +13,7 @@ class SmsSentResponse
      * @param int $account
      * @param string $smsId
      */
-    public function __construct($account, $smsId)
+    public function __construct(int $account, string $smsId)
     {
         $this->account = $account;
         $this->smsId   = $smsId;
@@ -21,7 +22,7 @@ class SmsSentResponse
     /**
      * @return int
      */
-    public function getAccount()
+    public function getAccount() : int
     {
         return $this->account;
     }
@@ -29,7 +30,7 @@ class SmsSentResponse
     /**
      * @return string
      */
-    public function getSmsId()
+    public function getSmsId() : string
     {
         return $this->smsId;
     }

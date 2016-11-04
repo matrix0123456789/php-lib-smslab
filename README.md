@@ -8,20 +8,21 @@ PHP client for SMSLabs.pl
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8d1dcd58-b1d1-4caa-8659-cb0c76402786/mini.png)](https://insight.sensiolabs.com/projects/8d1dcd58-b1d1-4caa-8659-cb0c76402786)
 [![Dependency Status](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb)
 
+## Tags
+ - v1.0 - deprecated tag without tests
+ - v2.0 - fully tested tag for PHP 5.6+
+ - v3.0 - fully tested tag for PHP 7.0+
+
 ## Installation
-
 The recommended way to install the library is through [Composer](http://getcomposer.org):
-
 ```sh
 $ composer require ittoolspl/php-lib-smslabs
 ```
 ## Usage
-
 **Constructor:**
 ```php
 $sms = new \Ittoolspl\Smslabs\SmslabsClient($appKey, $secret);
- ```
-
+```
 **Send SMS:**
 ```php
 $sms->setSenderId($numberOrSenderId)
@@ -31,37 +32,30 @@ $sms->setSenderId($numberOrSenderId)
     ->add($number, $message)
     ->send();
 ```
-
 **Show queued SMS (before send())**
 ```php
 $sms->getSmsQueue();
 ```
-
 **Get recently sent SMS status (after send()):**
 ```php
 $sms->getSentStatus();
 ```
-
 **Get available SenderId:**
 ```php
 $sms->getAvailableSenders();
 ```
-
 **Account Balance:**
 ```php
 $sms->getAccountBalance();
 ```
-
 **Check incoming SMS:**
 ```php
 $sms->getSmsIn();
 ```
-
 **Check sent SMS:**
 ```php
 $sms->getSmsOut($offset, $limit);
 ```
-
 **Check details of SMS:**
 ```php
 $sms->getSmsDetails();

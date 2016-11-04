@@ -1,18 +1,58 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
 class SmsOut
 {
+    /**
+     * @var string
+     */
     private $id;
+
+    /**
+     * @var \DateTime
+     */
     private $deliveryTime;
+
+    /**
+     * @var int
+     */
     private $count;
+
+    /**
+     * @var float
+     */
     private $price;
+
+    /**
+     * @var string
+     */
     private $content;
+
+    /**
+     * @var string
+     */
     private $numberTo;
+
+    /**
+     * @var \DateTime
+     */
     private $incomingTime;
+
+    /**
+     * @var int
+     */
     private $status;
+
+    /**
+     * @var string
+     */
     private $statusD;
+
+    /**
+     * @var string
+     */
     private $numberFrom;
 
     /**
@@ -20,7 +60,7 @@ class SmsOut
      * @param string $id
      * @param int $deliveryTime
      * @param int $count
-     * @param double $price
+     * @param float $price
      * @param string $content
      * @param string $numberTo
      * @param int $incomingTime
@@ -29,16 +69,16 @@ class SmsOut
      * @param string $numberFrom
      */
     public function __construct(
-        $id,
-        $deliveryTime,
-        $count,
-        $price,
-        $content,
-        $numberTo,
-        $incomingTime,
-        $status,
-        $statusD,
-        $numberFrom
+        string $id,
+        int $deliveryTime,
+        int $count,
+        float $price,
+        string $content,
+        string $numberTo,
+        int $incomingTime,
+        int $status,
+        string $statusD,
+        string $numberFrom
     ) {
         if ($deliveryTime !== null) {
             $deliveryTimeDT = new \DateTime();
@@ -64,11 +104,11 @@ class SmsOut
      * @param array $response
      * @return SmsOut
      */
-    public static function createFromResponseArray(array $response)
+    public static function createFromResponseArray(array $response) : SmsOut
     {
         return new self(
             $response['_id'],
-            array_key_exists('del_t', $response) ? $response['del_t'] : null,
+            array_key_exists('del_t', $response) ? $response['del_t'] : 0,
             $response['s_cnt'],
             $response['price'],
             $response['s_con'],
@@ -83,7 +123,7 @@ class SmsOut
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -91,7 +131,7 @@ class SmsOut
     /**
      * @return \DateTime
      */
-    public function getDeliveryTime()
+    public function getDeliveryTime() : \DateTime
     {
         return $this->deliveryTime;
     }
@@ -99,15 +139,15 @@ class SmsOut
     /**
      * @return int
      */
-    public function getCount()
+    public function getCount() : int
     {
         return $this->count;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getPrice()
+    public function getPrice() : float
     {
         return $this->price;
     }
@@ -115,7 +155,7 @@ class SmsOut
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent() : string
     {
         return $this->content;
     }
@@ -123,7 +163,7 @@ class SmsOut
     /**
      * @return string
      */
-    public function getNumberTo()
+    public function getNumberTo() : string
     {
         return $this->numberTo;
     }
@@ -131,7 +171,7 @@ class SmsOut
     /**
      * @return \DateTime
      */
-    public function getIncomingTime()
+    public function getIncomingTime() : \DateTime
     {
         return $this->incomingTime;
     }
@@ -139,7 +179,7 @@ class SmsOut
     /**
      * @return int
      */
-    public function getStatus()
+    public function getStatus() : int
     {
         return $this->status;
     }
@@ -147,7 +187,7 @@ class SmsOut
     /**
      * @return string
      */
-    public function getStatusD()
+    public function getStatusD() : string
     {
         return $this->statusD;
     }
@@ -155,7 +195,7 @@ class SmsOut
     /**
      * @return string
      */
-    public function getNumberFrom()
+    public function getNumberFrom() : string
     {
         return $this->numberFrom;
     }

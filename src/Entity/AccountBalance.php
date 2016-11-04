@@ -1,24 +1,28 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
 class AccountBalance
 {
+    /**
+     * @var float
+     */
     private $balance;
 
     /**
      * AccountBalance constructor.
-     * @param double $balance
+     * @param float $balance
      */
-    public function __construct($balance)
+    public function __construct(float $balance)
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getBalance()
+    public function getBalance() : float
     {
         return $this->balance;
     }

@@ -1,15 +1,43 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
 class SmsIn
 {
+    /**
+     * @var string
+     */
     private $id;
+
+    /**
+     * @var int
+     */
     private $count;
+
+    /**
+     * @var string
+     */
     private $content;
+
+    /**
+     * @var string
+     */
     private $numberTo;
+
+    /**
+     * @var \DateTime
+     */
     private $receiveTime;
+
+    /**
+     * @var string
+     */
     private $numberFrom;
+
+    /**
+     * @var int
+     */
     private $status;
 
     /**
@@ -22,8 +50,15 @@ class SmsIn
      * @param string $numberFrom
      * @param int $status
      */
-    public function __construct($id, $count, $content, $numberTo, $receiveTime, $numberFrom, $status)
-    {
+    public function __construct(
+        string $id,
+        int $count,
+        string $content,
+        string $numberTo,
+        int $receiveTime,
+        string $numberFrom,
+        int $status
+    ) {
         $receiveTimeDT = new \DateTime();
         $receiveTimeDT->setTimestamp($receiveTime);
 
@@ -40,7 +75,7 @@ class SmsIn
      * @param array $response
      * @return SmsIn
      */
-    public static function createFromResponseArray(array $response)
+    public static function createFromResponseArray(array $response) : SmsIn
     {
         return new self(
             $response['_id'],
@@ -56,7 +91,7 @@ class SmsIn
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -64,7 +99,7 @@ class SmsIn
     /**
      * @return int
      */
-    public function getCount()
+    public function getCount() : int
     {
         return $this->count;
     }
@@ -72,7 +107,7 @@ class SmsIn
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent() : string
     {
         return $this->content;
     }
@@ -80,7 +115,7 @@ class SmsIn
     /**
      * @return string
      */
-    public function getNumberTo()
+    public function getNumberTo() : string
     {
         return $this->numberTo;
     }
@@ -88,7 +123,7 @@ class SmsIn
     /**
      * @return \DateTime
      */
-    public function getReceiveTime()
+    public function getReceiveTime() : \DateTime
     {
         return $this->receiveTime;
     }
@@ -96,7 +131,7 @@ class SmsIn
     /**
      * @return string
      */
-    public function getNumberFrom()
+    public function getNumberFrom() : string
     {
         return $this->numberFrom;
     }
@@ -104,7 +139,7 @@ class SmsIn
     /**
      * @return int
      */
-    public function getStatus()
+    public function getStatus() : int
     {
         return $this->status;
     }

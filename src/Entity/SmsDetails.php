@@ -1,15 +1,43 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
 class SmsDetails
 {
+    /**
+     * @var string
+     */
     private $id;
+
+    /**
+     * @var string
+     */
     private $from;
+
+    /**
+     * @var string
+     */
     private $numberTo;
+
+    /**
+     * @var int
+     */
     private $status;
+
+    /**
+     * @var int
+     */
     private $smsCount;
+
+    /**
+     * @var string
+     */
     private $smsContent;
+
+    /**
+     * @var float
+     */
     private $priceInGrosz;
 
     /**
@@ -20,10 +48,17 @@ class SmsDetails
      * @param int $status
      * @param int $smsCount
      * @param string $smsContent
-     * @param double $priceInGrosz
+     * @param float $priceInGrosz
      */
-    public function __construct($id, $from, $numberTo, $status, $smsCount, $smsContent, $priceInGrosz)
-    {
+    public function __construct(
+        string $id,
+        string $from,
+        string $numberTo,
+        int $status,
+        int $smsCount,
+        string$smsContent,
+        float $priceInGrosz
+    ) {
         $this->id           = $id;
         $this->from         = $from;
         $this->numberTo     = $numberTo;
@@ -36,9 +71,9 @@ class SmsDetails
     /**
      * Creates SmsDetails object by array
      * @param array $response
-     * @return \Ittoolspl\Smslabs\Entity\SmsDetails
+     * @return SmsDetails
      */
-    public static function createFromResponseArray(array $response)
+    public static function createFromResponseArray(array $response) : SmsDetails
     {
         return new self(
             $response['id'],
@@ -54,7 +89,7 @@ class SmsDetails
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -62,7 +97,7 @@ class SmsDetails
     /**
      * @return string
      */
-    public function getFrom()
+    public function getFrom() : string
     {
         return $this->from;
     }
@@ -70,7 +105,7 @@ class SmsDetails
     /**
      * @return string
      */
-    public function getNumberTo()
+    public function getNumberTo() : string
     {
         return $this->numberTo;
     }
@@ -78,7 +113,7 @@ class SmsDetails
     /**
      * @return int
      */
-    public function getStatus()
+    public function getStatus() : int
     {
         return $this->status;
     }
@@ -86,7 +121,7 @@ class SmsDetails
     /**
      * @return int
      */
-    public function getSmsCount()
+    public function getSmsCount() : int
     {
         return $this->smsCount;
     }
@@ -94,15 +129,15 @@ class SmsDetails
     /**
      * @return string
      */
-    public function getSmsContent()
+    public function getSmsContent() : string
     {
         return $this->smsContent;
     }
 
     /**
-     * @return double
+     * @return float
      */
-    public function getPriceInGrosz()
+    public function getPriceInGrosz() : float
     {
         return $this->priceInGrosz;
     }

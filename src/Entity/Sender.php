@@ -1,11 +1,23 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs\Entity;
 
 class Sender
 {
+    /**
+     * @var string
+     */
     private $id;
+
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $sender;
 
     /**
@@ -14,7 +26,7 @@ class Sender
      * @param string $name
      * @param string $sender
      */
-    public function __construct($id, $name, $sender)
+    public function __construct(string $id, string $name, string $sender)
     {
         $this->id     = $id;
         $this->name   = $name;
@@ -25,7 +37,7 @@ class Sender
      * @param array $response
      * @return Sender
      */
-    public static function createFromResponseArray(array $response)
+    public static function createFromResponseArray(array $response) : Sender
     {
         return new self(
             $response['id'],
@@ -37,7 +49,7 @@ class Sender
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -45,7 +57,7 @@ class Sender
     /**
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -53,7 +65,7 @@ class Sender
     /**
      * @return string
      */
-    public function getSender()
+    public function getSender() : string
     {
         return $this->sender;
     }

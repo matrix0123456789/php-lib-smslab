@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs;
 
@@ -29,7 +30,7 @@ class HttpClient
      * @param string $appKey
      * @param string $secretKey
      */
-    public function __construct($appKey, $secretKey)
+    public function __construct(string $appKey, string $secretKey)
     {
         $this->appKey    = $appKey;
         $this->secretKey = $secretKey;
@@ -42,9 +43,9 @@ class HttpClient
      * @return array
      * @throws InvalidResponseException
      */
-    public function sendRequest($url, $data = null, $method = 'GET')
+    public function sendRequest(string $url, array $data = null, string $method = 'GET') : array
     {
-        if ($this->validateHttpMethod($method) === false) {
+        if (!$this->validateHttpMethod($method)) {
             throw new \InvalidArgumentException('Invalid method');
         }
 
@@ -67,7 +68,7 @@ class HttpClient
      * @return array
      * @throws InvalidResponseException
      */
-    private function parseJsonData($json)
+    private function parseJsonData(string $json) : array
     {
         try {
             $bodyArr = \GuzzleHttp\json_decode($json, true);
@@ -86,7 +87,7 @@ class HttpClient
      * @param string $method
      * @return bool
      */
-    private function validateHttpMethod($method)
+    private function validateHttpMethod(string $method) : bool
     {
         return in_array($method, ['POST', 'PUT', 'GET', 'DELETE']);
     }
@@ -94,7 +95,7 @@ class HttpClient
     /**
      * @return Client
      */
-    public function getClient()
+    public function getClient() : Client
     {
         if ($this->client === null) {
             $this->client = new Client();
@@ -105,16 +106,19 @@ class HttpClient
 
     /**
      * @param Client $client
+     * @return HttpClient $this
      */
-    public function setClient(Client $client)
+    public function setClient(Client $client) : HttpClient
     {
         $this->client = $client;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getAppKey()
+    public function getAppKey() : string
     {
         return $this->appKey;
     }
@@ -123,7 +127,7 @@ class HttpClient
      * @param string $appKey
      * @return HttpClient $this
      */
-    public function setAppKey($appKey)
+    public function setAppKey(string $appKey) : HttpClient
     {
         $this->appKey = $appKey;
 
@@ -133,7 +137,7 @@ class HttpClient
     /**
      * @return string
      */
-    public function getSecretKey()
+    public function getSecretKey() : string
     {
         return $this->secretKey;
     }
@@ -142,7 +146,7 @@ class HttpClient
      * @param string $secretKey
      * @return HttpClient $this
      */
-    public function setSecretKey($secretKey)
+    public function setSecretKey(string $secretKey) : HttpClient
     {
         $this->secretKey = $secretKey;
 

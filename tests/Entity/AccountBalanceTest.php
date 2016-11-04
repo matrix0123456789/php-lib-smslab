@@ -6,9 +6,6 @@ use Ittoolspl\Smslabs\Entity\AccountBalance;
 
 class AccountBalanceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Ittoolspl\Smslabs\Entity\AccountBalance
-     */
     public function testValid()
     {
         $balance = new AccountBalance(159.36);

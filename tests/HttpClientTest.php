@@ -43,13 +43,13 @@ class HttpClientTest extends \PHPUnit_Framework_TestCase
 
     public function testHttpClientValid()
     {
-        $guzzleResponse = new Response(200, [], \GuzzleHttp\json_encode(['data' => 'validData']));
+        $guzzleResponse = new Response(200, [], \GuzzleHttp\json_encode(['data' => ['validData']]));
 
         $httpClient = new HttpClient('appKey', 'secret');
         $httpClient->setClient($this->mockGuzzleClient($guzzleResponse));
         $request = $httpClient->sendRequest('/validUrl', null, 'GET');
 
-        $this->assertEquals('validData', $request);
+        $this->assertEquals(['validData'], $request);
     }
 
     public function testHttpClientValidClient()

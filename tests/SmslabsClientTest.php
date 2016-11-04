@@ -2,7 +2,6 @@
 
 namespace Ittoolspl\Smslabs\tests;
 
-use GuzzleHttp\Client;
 use Ittoolspl\Smslabs\Entity\Sender;
 use Ittoolspl\Smslabs\Entity\SmsDetails;
 use Ittoolspl\Smslabs\Entity\SmsIn;
@@ -135,7 +134,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
 
         $sms = new SmslabsClient('', '');
         $sms->setSenderId('ITtools.pl');
-        $sms->setFlashMessage(true);
+        $sms->setFlashMessage(1);
         $sms->setExpirationMinutes(900);
         $sms->setSendDateTime($sendDate);
         $sms->add('+48790000000', 'message');
@@ -147,7 +146,7 @@ class SmslabsClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(HttpClient::class, $sms->getClient());
         $this->assertInstanceOf(SmslabsClient::class, $sendResult);
         $this->assertEquals('ITtools.pl', $sms->getSenderId());
-        $this->assertTrue($sms->isFlashMessage());
+        $this->assertEquals(1, $sms->isFlashMessage());
         $this->assertEquals(900, $sms->getExpirationMinutes());
         $this->assertEquals($sendDate, $sms->getSendDateTime());
         $this->assertEquals(1593, $status[0]->getAccount());

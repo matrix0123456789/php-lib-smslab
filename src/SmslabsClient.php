@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Ittoolspl\Smslabs;
 
@@ -25,9 +26,9 @@ class SmslabsClient
     private $client;
 
     /**
-     * @var bool
+     * @var int
      */
-    private $isFlashMessage = false;
+    private $isFlashMessage = 0;
 
     /**
      * @var string
@@ -59,7 +60,7 @@ class SmslabsClient
      * @param string $appKey
      * @param string $secretKey
      */
-    public function __construct($appKey, $secretKey)
+    public function __construct(string $appKey, string $secretKey)
     {
         $this->client = new HttpClient($appKey, $secretKey);
     }
@@ -67,16 +68,16 @@ class SmslabsClient
     /**
      * @return HttpClient
      */
-    public function getClient()
+    public function getClient() : HttpClient
     {
         return $this->client;
     }
 
     /**
      * @param HttpClient $client
-     * @return $this
+     * @return SmslabsClient $this
      */
-    public function setClient(HttpClient $client)
+    public function setClient(HttpClient $client) : SmslabsClient
     {
         $this->client = $client;
 
@@ -84,20 +85,20 @@ class SmslabsClient
     }
 
     /**
-     * @return boolean
+     * @return int
      */
-    public function isFlashMessage()
+    public function isFlashMessage() : int
     {
         return $this->isFlashMessage;
     }
 
     /**
-     * @param boolean $isFlashMessage
+     * @param int $isFlashMessage
      * @return SmslabsClient $this
      */
-    public function setFlashMessage($isFlashMessage)
+    public function setFlashMessage(int $isFlashMessage) : SmslabsClient
     {
-        $this->isFlashMessage = (bool)$isFlashMessage;
+        $this->isFlashMessage = $isFlashMessage;
 
         return $this;
     }
@@ -105,7 +106,7 @@ class SmslabsClient
     /**
      * @return string
      */
-    public function getSenderId()
+    public function getSenderId() : string
     {
         return $this->senderId;
     }
@@ -114,7 +115,7 @@ class SmslabsClient
      * @param string $senderId
      * @return SmslabsClient $this
      */
-    public function setSenderId($senderId)
+    public function setSenderId(string $senderId) : SmslabsClient
     {
         $this->senderId = $senderId;
 
@@ -124,7 +125,7 @@ class SmslabsClient
     /**
      * @return int
      */
-    public function getExpirationMinutes()
+    public function getExpirationMinutes() : int
     {
         return $this->expirationMinutes;
     }
@@ -133,13 +134,13 @@ class SmslabsClient
      * @param int $expirationMinutes
      * @return SmslabsClient $this
      */
-    public function setExpirationMinutes($expirationMinutes)
+    public function setExpirationMinutes(int $expirationMinutes) : SmslabsClient
     {
         if ($expirationMinutes < 1 || $expirationMinutes > 5520) {
             throw new \InvalidArgumentException('Valid values: 1 - 5520');
         }
 
-        $this->expirationMinutes = (int)$expirationMinutes;
+        $this->expirationMinutes = $expirationMinutes;
 
         return $this;
     }
@@ -147,7 +148,7 @@ class SmslabsClient
     /**
      * @return \DateTime
      */
-    public function getSendDateTime()
+    public function getSendDateTime() : \DateTime
     {
         return $this->sendDateTime;
     }
@@ -156,7 +157,7 @@ class SmslabsClient
      * @param \DateTime $sendDateTime
      * @return SmslabsClient $this
      */
-    public function setSendDateTime(\DateTime $sendDateTime)
+    public function setSendDateTime(\DateTime $sendDateTime) : SmslabsClient
     {
         $this->sendDateTime = $sendDateTime;
 
@@ -172,28 +173,28 @@ class SmslabsClient
      * @return SmslabsClient $this
      */
     public function add(
-        $phoneNumber,
-        $message,
-        $isFlashMessage = null,
-        $expirationMinutes = null,
+        string $phoneNumber,
+        string $message,
+        bool $isFlashMessage = null,
+        int $expirationMinutes = null,
         \DateTime $sendDateTime = null
-    ) {
-        if ($this->checkPhoneNumber($phoneNumber) === false) {
+    ) : SmslabsClient {
+        if (!$this->checkPhoneNumber($phoneNumber)) {
             throw new \InvalidArgumentException('Invalid phone number');
         }
 
         $sms = [
             'phone_number' => $phoneNumber,
             'message' => $message,
-            'flash' => $isFlashMessage === null ? (int)$this->isFlashMessage : (int)$isFlashMessage,
-            'expiration' => $expirationMinutes === null ? (int)$this->expirationMinutes : (int)$expirationMinutes,
+            'flash' => $isFlashMessage === null ? $this->isFlashMessage : $isFlashMessage,
+            'expiration' => $expirationMinutes === null ? $this->expirationMinutes : $expirationMinutes,
             'sender_id' => $this->senderId,
         ];
 
         if ($sendDateTime instanceof \DateTime) {
-            $sms['send_date'] = (int)$sendDateTime->getTimestamp();
+            $sms['send_date'] = $sendDateTime->getTimestamp();
         } elseif ($this->sendDateTime instanceof \DateTime) {
-            $sms['send_date'] = (int)$this->sendDateTime->getTimestamp();
+            $sms['send_date'] = $this->sendDateTime->getTimestamp();
         }
 
         $this->smsToSend[] = $sms;
@@ -205,7 +206,7 @@ class SmslabsClient
      * @param string $phoneNumber
      * @return bool
      */
-    private function checkPhoneNumber($phoneNumber)
+    private function checkPhoneNumber(string $phoneNumber) : bool
     {
         return (bool)preg_match('/^\+[0-9]{10,13}$/', $phoneNumber);
     }
@@ -213,7 +214,7 @@ class SmslabsClient
     /**
      * @return SmslabsClient $this
      */
-    public function send()
+    public function send() : SmslabsClient
     {
         if (empty($this->smsToSend)) {
             throw new EmptySMSQueueException('No messages to send');
@@ -237,7 +238,7 @@ class SmslabsClient
     /**
      * @return SmsSentResponse[]
      */
-    public function getSentStatus()
+    public function getSentStatus() : array
     {
         return $this->smsStatus;
     }
@@ -245,7 +246,7 @@ class SmslabsClient
     /**
      * @return Sender[]
      */
-    public function getAvailableSenders()
+    public function getAvailableSenders() : array
     {
         $sendersResponse = $this->client->sendRequest(self::SENDERS_URL);
 
@@ -261,7 +262,7 @@ class SmslabsClient
     /**
      * @return AccountBalance
      */
-    public function getAccountBalance()
+    public function getAccountBalance() : AccountBalance
     {
         $balanceResponse = $this->client->sendRequest(self::ACCOUNT_URL);
 
@@ -271,7 +272,7 @@ class SmslabsClient
     /**
      * @return SmsIn[]
      */
-    public function getSmsIn()
+    public function getSmsIn() : array
     {
         $smsInResponse = $this->client->sendRequest(self::SMS_IN_URL);
 
@@ -289,7 +290,7 @@ class SmslabsClient
      * @param int $limit
      * @return SmsOut[]
      */
-    public function getSmsOut($offset = 0, $limit = 100)
+    public function getSmsOut(int $offset = 0, int $limit = 100) : array
     {
         $smsOutResponse = $this->client->sendRequest(self::SMS_LIST_URL . '?offset=' . $offset . '&limit=' . $limit);
 
@@ -306,7 +307,7 @@ class SmslabsClient
      * @param string $smsId
      * @return bool
      */
-    private function isValidSmsId($smsId)
+    private function isValidSmsId(string $smsId) : bool
     {
         return (bool) preg_match('/[0-9a-f]{24}/', $smsId);
     }
@@ -315,9 +316,9 @@ class SmslabsClient
      * @param string $smsId
      * @return SmsDetails
      */
-    public function getSmsDetails($smsId)
+    public function getSmsDetails(string $smsId) : SmsDetails
     {
-        if ($this->isValidSmsId($smsId) === false) {
+        if (!$this->isValidSmsId($smsId)) {
             throw new \InvalidArgumentException('Invalid SMS ID');
         }
 
@@ -331,7 +332,7 @@ class SmslabsClient
     /**
      * @return array[]
      */
-    public function getSmsQueue()
+    public function getSmsQueue() : array
     {
         return $this->smsToSend;
     }

@@ -6,9 +6,6 @@ use Ittoolspl\Smslabs\Entity\SmsDetails;
 
 class SmsDetailsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Ittoolspl\Smslabs\Entity\SmsDetails
-     */
     public function testValid()
     {
         $smsData = [

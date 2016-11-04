@@ -6,9 +6,6 @@ use Ittoolspl\Smslabs\Entity\SmsIn;
 
 class SmsInTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Ittoolspl\Smslabs\Entity\SmsIn
-     */
     public function testConstructAndGetters()
     {
         $timestamp = 1477707542;
