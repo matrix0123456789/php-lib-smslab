@@ -6,10 +6,9 @@ PHP client for SMSLabs.pl
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ittoolspl/php-lib-smslab/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8d1dcd58-b1d1-4caa-8659-cb0c76402786/mini.png)](https://insight.sensiolabs.com/projects/8d1dcd58-b1d1-4caa-8659-cb0c76402786)
-[![Dependency Status](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5813e0c0d33a712754f2a6eb)
 
 ## Tags
- - v1.0 - deprecated tag without tests
+ - v1.0 - deprecated tag without tests for PHP 5.6+
  - v2.0 - fully tested tag for PHP 5.6+
  - v3.0 - fully tested tag for PHP 7.0+
 
@@ -60,6 +59,10 @@ $sms->getSmsOut($offset, $limit);
 ```php
 $sms->getSmsDetails();
 ```
+
+## Contributing
+Feel free to contribute. 
+If you've got any problems/ideas, please create new [issue](https://github.com/tableless/Sublime/issues) or develop new pull request. 
 
 ## License
 php-lib-smslab is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
