@@ -58,9 +58,7 @@ class HttpClient
             throw new InvalidResponseException('Invalid HTTP code');
         }
 
-        $bodyJson = (string)$response->getBody();
-
-        return $this->parseJsonData($bodyJson);
+        return $this->parseJsonData((string)$response->getBody());
     }
 
     /**
