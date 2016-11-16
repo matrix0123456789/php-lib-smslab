@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests\Entity;
 
-use Ittoolspl\Smslabs\Entity\SmsOut;
+use Ittoolspl\Smslabs\VO\SmsOut;
 
 class SmsOutTest extends \PHPUnit_Framework_TestCase
 {

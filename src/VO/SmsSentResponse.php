@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Ittoolspl\Smslabs\Entity;
+namespace Ittoolspl\Smslabs\VO;
 
 class SmsSentResponse
 {

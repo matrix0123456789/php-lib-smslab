@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests\Entity;
 
-use Ittoolspl\Smslabs\Entity\Sender;
+use Ittoolspl\Smslabs\VO\Sender;
 
 class SenderTest extends \PHPUnit_Framework_TestCase
 {

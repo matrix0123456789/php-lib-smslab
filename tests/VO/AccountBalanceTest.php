@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests\Entity;
 
-use Ittoolspl\Smslabs\Entity\AccountBalance;
+use Ittoolspl\Smslabs\VO\AccountBalance;
 
 class AccountBalanceTest extends \PHPUnit_Framework_TestCase
 {

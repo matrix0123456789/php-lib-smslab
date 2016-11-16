@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests\Entity;
 
-use Ittoolspl\Smslabs\Entity\SmsDetails;
+use Ittoolspl\Smslabs\VO\SmsDetails;
 
 class SmsDetailsTest extends \PHPUnit_Framework_TestCase
 {

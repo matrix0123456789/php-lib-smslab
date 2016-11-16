@@ -2,7 +2,7 @@
 
 namespace Ittoolspl\Smslabs\Tests\Entity;
 
-use Ittoolspl\Smslabs\Entity\SmsSentResponse;
+use Ittoolspl\Smslabs\VO\SmsSentResponse;
 
 class SmsSentResponseTest extends \PHPUnit_Framework_TestCase
 {

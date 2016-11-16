@@ -2,10 +2,10 @@
 
 namespace Ittoolspl\Smslabs\tests;
 
-use Ittoolspl\Smslabs\Entity\Sender;
-use Ittoolspl\Smslabs\Entity\SmsDetails;
-use Ittoolspl\Smslabs\Entity\SmsIn;
-use Ittoolspl\Smslabs\Entity\SmsOut;
+use Ittoolspl\Smslabs\VO\Sender;
+use Ittoolspl\Smslabs\VO\SmsDetails;
+use Ittoolspl\Smslabs\VO\SmsIn;
+use Ittoolspl\Smslabs\VO\SmsOut;
 use Ittoolspl\Smslabs\Exception\EmptySMSQueueException;
 use Ittoolspl\Smslabs\HttpClient;
 use Ittoolspl\Smslabs\SmslabsClient;
