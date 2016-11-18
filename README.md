@@ -62,7 +62,7 @@ $sms->getSmsDetails();
 
 ## Contributing
 Feel free to contribute. 
-If you've got any problems/ideas, please create new [issue](https://github.com/tableless/Sublime/issues) or develop new pull request. 
+If you've got any problems/ideas, please create new [issue](https://github.com/ittoolspl/php-lib-smslab/issues) or develop new pull request. 
 
 ## License
 php-lib-smslab is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
